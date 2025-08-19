@@ -2,7 +2,7 @@
 
 ## Project info
 
-**URL**: https://AhmedEzzat.dev/projects/ed65b947-7beb-43dc-90ed-7182c5eda349
+**URL**: https://ahmedezzatallam-2004.github.io/#
 
 ## How can I edit this code?
 
@@ -10,7 +10,7 @@ There are several ways of editing your application.
 
 **Use AhmedEzzat**
 
-Simply visit the [AhmedEzzat Project](https://AhmedEzzat.dev/projects/ed65b947-7beb-43dc-90ed-7182c5eda349) and start prompting.
+Simply visit the [Ahmed Ezzat GitHub Repo](https://github.com/ahmedezzatallam-2004/ahmedezzatallam-2004.github.io)  and start prompting.
 
 Changes made via AhmedEzzat will be committed automatically to this repo.
 
@@ -62,7 +62,8 @@ This project is built with:
 
 ## How can I deploy this project?
 
-Simply open (https://AhmedEzzat.dev/projects/ed65b947-7beb-43dc-90ed-7182c5eda349) and click on Share -> Publish.
+Simply open  🔗 [https://ahmedezzatallam-2004.github.io/](https://ahmedezzatallam-2004.github.io/)  
+ and click on Share -> Publish.
 
 ## Can I connect a custom domain to my Lovable project?
 
@@ -70,4 +71,4 @@ Yes, you can!
 
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
-Read more here: [Setting up a custom domain](https://docs.AhmedEzzat.dev/tips-tricks/custom-domain#step-by-step-guide)
+Read more here: [Configuring a custom domain for GitHub Pages](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)
