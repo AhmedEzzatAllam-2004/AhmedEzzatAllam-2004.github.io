@@ -65,7 +65,7 @@ This project is built with:
 Simply open  🔗 [https://ahmedezzatallam-2004.github.io/](https://ahmedezzatallam-2004.github.io/)  
  and click on Share -> Publish.
 
-## Can I connect a custom domain to my Lovable project?
+## Can I connect a custom domain to my project?
 
 Yes, you can!
 
