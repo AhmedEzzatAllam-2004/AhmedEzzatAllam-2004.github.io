@@ -27,9 +27,22 @@ const About = () => {
   ];
 
   const skills = [
-    "Leadership", "Strategic Planning", "Project Management", "Team Building",
-    "Business Development", "Process Optimization", "Digital Transformation",
-    "Data Analysis", "Innovation Management", "Stakeholder Relations"
+    // Foundations
+    "Calculus", "Linear Algebra", "Probability & Statistics", "Discrete Mathematics",
+    "Digital Logic & Computer Architecture", "Technical English", "Sustainability & Ethics",
+    
+    // Core Computing & AI
+    "Programming (Python, C++, OOP)", "Data Structures & Algorithms", "Database Systems (SQL)",
+    "Software Engineering Principles", "Computer Networks & Security", "Artificial Intelligence",
+    "Project Management & Team Collaboration",
+    
+    // Advanced Data Science & AI
+    "Machine Learning", "Deep Learning (CNNs, RNNs, Transformers)", "Natural Language Processing",
+    "Computer Vision & Speech Recognition", "Data Mining & Big Data Analytics", "ETL & Data Governance",
+    "Explainable AI (XAI)", "MLOps", "Nature-Inspired Computation", "Cloud Computing & GIS",
+    
+    // Professional Experience
+    "Internship Experience", "Senior Project Development"
   ];
 
   return (
@@ -40,8 +53,9 @@ const About = () => {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-foreground mb-4">About Me</h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              A dedicated professional with a passion for innovation and excellence, 
-              committed to delivering exceptional results and driving organizational success.
+              A dedicated and ambitious student with a strong foundation in programming, data science, and AI. 
+              I enjoy building projects, learning new technologies, and collaborating with others to create impactful solutions.
+
             </p>
           </div>
 
@@ -52,7 +66,7 @@ const About = () => {
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-semibold text-foreground mb-4">My Journey</h3>
                   <p className="text-muted-foreground leading-relaxed mb-4">
-                    With over [X] years of experience in [industry], I've had the privilege 
+                    With over 5 years of experience in [programming], I've had the privilege 
                     of working with diverse teams and organizations to solve complex challenges 
                     and drive meaningful change.
                   </p>

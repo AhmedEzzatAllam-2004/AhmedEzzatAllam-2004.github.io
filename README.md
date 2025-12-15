@@ -1,38 +1,31 @@
-# Welcome to your Ahmed Ezzat project
+# Welcome to your Lovable project
 
 ## Project info
 
-**URL**: https://ahmedezzatallam-2004.github.io/#
+**URL**: https://lovable.dev/projects/ed65b947-7beb-43dc-90ed-7182c5eda349
 
 ## How can I edit this code?
 
 There are several ways of editing your application.
 
-**Use AhmedEzzat**
+**Use Lovable**
 
-Simply visit the [Ahmed Ezzat GitHub Repo](https://github.com/ahmedezzatallam-2004/ahmedezzatallam-2004.github.io)  and start prompting.
+Simply visit the [Lovable Project](https://lovable.dev/projects/ed65b947-7beb-43dc-90ed-7182c5eda349) and start prompting.
 
-Changes made via AhmedEzzat will be committed automatically to this repo.
+Changes made via Lovable will be committed automatically to this repo.
 
 **Use your preferred IDE**
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in AhmedEzzat.
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
 The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
 Follow these steps:
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+git clone https://github.com/ahmedezzatallam-2004/ahmedezzatallam-2004.github.io.git
+cd ahmedezzatallam-2004.github.io
+npm install
 npm run dev
 ```
 
@@ -62,13 +55,12 @@ This project is built with:
 
 ## How can I deploy this project?
 
-Simply open  🔗 [https://ahmedezzatallam-2004.github.io/](https://ahmedezzatallam-2004.github.io/)  
- and click on Share -> Publish.
+Simply open [Lovable](https://lovable.dev/projects/ed65b947-7beb-43dc-90ed-7182c5eda349) and click on Share -> Publish.
 
-## Can I connect a custom domain to my project?
+## Can I connect a custom domain to my Lovable project?
 
 Yes, you can!
 
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
-Read more here: [Configuring a custom domain for GitHub Pages](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)
+Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)

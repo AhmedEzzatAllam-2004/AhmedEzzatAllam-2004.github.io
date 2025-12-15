@@ -2,35 +2,108 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Linkedin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Github, Facebook, Instagram, Send } from "lucide-react";
+import React, { useCallback, useState } from "react";
+import { toast } from "@/components/ui/use-toast";
 
 const Contact = () => {
   const contactInfo = [
     {
       icon: Mail,
       title: "Email",
-      value: "your.email@example.com",
-      link: "mailto:your.email@example.com"
+      value: "ahmedezzatallamshaker@gmail.com",
+      link: "mailto:ahmedezzatallamshaker@gmail.com"
     },
     {
       icon: Phone,
       title: "Phone",
-      value: "+1 (555) 123-4567",
-      link: "tel:+15551234567"
+      value: "+201140674371",
+      link: "tel:+201140674371"
     },
     {
       icon: MapPin,
       title: "Location",
-      value: "City, Country",
+      value: "🌍 Giza, 6 October, Egypt",
       link: "#"
     },
     {
       icon: Linkedin,
       title: "LinkedIn",
-      value: "linkedin.com/in/yourprofile",
-      link: "https://linkedin.com/in/yourprofile"
+      value: "linkedin.com/in/ahmedezzatallam",
+      link: "https://www.linkedin.com/in/ahmedezzatallam"
+    },
+    {
+      icon: Github,
+      title: "GitHub",
+      value: "github.com/AhmedEzzatAllam-2004",
+      link: "https://github.com/AhmedEzzatAllam-2004"
+    },
+    {
+      icon: Facebook,
+      title: "Facebook",
+      value: "facebook.com/share/1B2PNh6Uwq/",
+      link: "https://www.facebook.com/share/1B2PNh6Uwq/"
+    },
+    {
+      icon: Instagram,
+      title: "Instagram",
+      value: "@ahmed.ezzat_2004",
+      link: "https://www.instagram.com/ahmed.ezzat_2004"
     }
   ];
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    const payload = {
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
+      email: data.get("email"),
+      subject: data.get("subject"),
+      message: data.get("message"),
+    };
+
+    try {
+      setIsSubmitting(true);
+      const res = await fetch("https://gwylvznrtdiazdamypdn.supabase.co/functions/v1/send-whatsapp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload), // ✅ كده البيانات بتتبعت
+      });
+
+      const result = await res.json();
+
+      if (res.ok && result.success) {
+        toast({
+          title: "Message Sent ✅",
+          description: "Your message was delivered via WhatsApp successfully.",
+        });
+        form.reset();
+      } else {
+        console.error(result);
+        toast({
+          title: "Error ❌",
+          description: "Failed to send the message via WhatsApp.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Error sending WhatsApp message:", error);
+      toast({
+        title: "Error",
+        description: "Something went wrong while sending the message.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, []);
 
   return (
     <section id="contact" className="py-20 bg-background">
@@ -79,22 +152,6 @@ const Contact = () => {
                   </Card>
                 ))}
               </div>
-
-              {/* Call to Action */}
-              <Card className="bg-gradient-to-br from-primary/5 to-accent/5 border-primary/20">
-                <CardContent className="p-6 text-center">
-                  <h4 className="text-lg font-semibold text-foreground mb-2">
-                    Professional Opportunities
-                  </h4>
-                  <p className="text-muted-foreground mb-4">
-                    Open to discussing new opportunities and collaborations
-                  </p>
-                  <Button className="bg-primary hover:bg-primary-hover text-primary-foreground">
-                    <Linkedin className="w-4 h-4 mr-2" />
-                    Connect on LinkedIn
-                  </Button>
-                </CardContent>
-              </Card>
             </div>
 
             {/* Contact Form */}
@@ -103,66 +160,40 @@ const Contact = () => {
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-semibold text-foreground mb-6">Send a Message</h3>
                   
-                  <form className="space-y-6">
+                  <form className="space-y-6" onSubmit={handleSubmit}>
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-foreground mb-2">
-                          First Name
-                        </label>
-                        <Input
-                          placeholder="Your first name"
-                          className="bg-background border-border focus:border-primary focus:ring-primary"
-                        />
+                        <label className="block text-sm font-medium text-foreground mb-2">First Name</label>
+                        <Input name="firstName" required />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-foreground mb-2">
-                          Last Name
-                        </label>
-                        <Input
-                          placeholder="Your last name"
-                          className="bg-background border-border focus:border-primary focus:ring-primary"
-                        />
+                        <label className="block text-sm font-medium text-foreground mb-2">Last Name</label>
+                        <Input name="lastName" required />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">
-                        Email
-                      </label>
-                      <Input
-                        type="email"
-                        placeholder="your.email@example.com"
-                        className="bg-background border-border focus:border-primary focus:ring-primary"
-                      />
+                      <label className="block text-sm font-medium text-foreground mb-2">Email</label>
+                      <Input type="email" name="email" required />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">
-                        Subject
-                      </label>
-                      <Input
-                        placeholder="What would you like to discuss?"
-                        className="bg-background border-border focus:border-primary focus:ring-primary"
-                      />
+                      <label className="block text-sm font-medium text-foreground mb-2">Subject</label>
+                      <Input name="subject" required />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">
-                        Message
-                      </label>
-                      <Textarea
-                        placeholder="Tell me more about your inquiry..."
-                        rows={6}
-                        className="bg-background border-border focus:border-primary focus:ring-primary resize-none"
-                      />
+                      <label className="block text-sm font-medium text-foreground mb-2">Message</label>
+                      <Textarea name="message" rows={6} required />
                     </div>
 
                     <Button
                       type="submit"
+                      disabled={isSubmitting}
                       className="w-full bg-primary hover:bg-primary-hover text-primary-foreground py-3 font-semibold transition-all duration-300 hover:scale-105"
                     >
                       <Send className="w-5 h-5 mr-2" />
-                      Send Message
+                      {isSubmitting ? "Sending..." : "Send Message"}
                     </Button>
                   </form>
                 </CardContent>
@@ -176,3 +207,4 @@ const Contact = () => {
 };
 
 export default Contact;
+
