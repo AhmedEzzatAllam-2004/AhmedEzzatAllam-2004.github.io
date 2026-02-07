@@ -1,66 +1,95 @@
-# Welcome to your Lovable project
 
-## Project info
+-----
 
-**URL**: https://lovable.dev/projects/ed65b947-7beb-43dc-90ed-7182c5eda349
+# 🚀 Ahmed Ezzat's Portfolio 
 
-## How can I edit this code?
+مرحباً بك في المستودع الرسمي لمشروعي الشخصي (Portfolio). هذا المشروع يمثل خلاصة مهاراتي، خبراتي، وأعمالي في تطوير الويب، ومبني بأحدث التقنيات.
 
-There are several ways of editing your application.
+| خاصية | القيمة |
+| :--- | :--- |
+| **المطور** | أحمد عزت (Ahmed Ezzat) |
+| **الرابط المباشر** | [🔗 زيارة الموقع الآن](https://ahmedezzatallam-2004.github.io/#) |
+| **المستودع (Repo)** | `AhmedEzzatAllam-2004/AhmedEzzatAllam-2004.github.io` |
 
-**Use Lovable**
+-----
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/ed65b947-7beb-43dc-90ed-7182c5eda349) and start prompting.
+## 💻 نظرة سريعة على التقنيات (Tech Stack)
 
-Changes made via Lovable will be committed automatically to this repo.
+تم بناء هذا المشروع ليكون سريع الأداء وقابل للتوسع، بالاعتماد على المزيج التقني التالي:
 
-**Use your preferred IDE**
+  * **Frontend Library:** React
+  * **Build Tool/Bundler:** Vite
+  * **Language:** TypeScript
+  * **Styling:** Tailwind CSS
+  * **UI Components:** shadcn-ui
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+-----
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## ⚙️ دليل التشغيل المحلي (Local Setup)
 
-Follow these steps:
+للبدء في تطوير المشروع على جهازك المحلي، اتبع الخطوات البسيطة التالية:
 
-```sh
-git clone https://github.com/ahmedezzatallam-2004/ahmedezzatallam-2004.github.io.git
-cd ahmedezzatallam-2004.github.io
-npm install
-npm run dev
-```
+### المتطلبات الأساسية
 
-**Edit a file directly in GitHub**
+  * يجب أن يكون لديك **Node.js** و **npm** مثبتين. (يوصى باستخدام **nvm**).
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### خطوات الإعداد
 
-**Use GitHub Codespaces**
+1.  **استنساخ المستودع (Clone):**
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+    ```bash
+    git clone <YOUR_GIT_URL>
+    ```
 
-## What technologies are used for this project?
+    *(ضع رابط المستودع الخاص بك هنا)*
 
-This project is built with:
+2.  **الانتقال إلى المجلد:**
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+    ```bash
+    cd <YOUR_PROJECT_NAME>
+    ```
 
-## How can I deploy this project?
+3.  **تثبيت الحزم (Dependencies):**
 
-Simply open [Lovable](https://lovable.dev/projects/ed65b947-7beb-43dc-90ed-7182c5eda349) and click on Share -> Publish.
+    ```bash
+    npm install
+    ```
 
-## Can I connect a custom domain to my Lovable project?
+4.  **بدء خادم التطوير (Development Server):**
 
-Yes, you can!
+    ```bash
+    npm run dev
+    ```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+    سيتم تشغيل التطبيق في وضع التطوير (Development Mode) مع خاصية إعادة التحميل الفوري (Hot Reloading).
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+-----
+
+## 🚀 النشر وإدارة التعديلات
+
+### طريقة النشر (Deployment Method)
+
+يتم نشر هذا المشروع واستضافته تلقائياً على **GitHub Pages**.
+
+  * للتأكد من نشر أحدث التغييرات: بعد تعديل الكود على فرع `main`، نفذ أمر النشر المخصص:
+    ```bash
+    npm run deploy
+    ```
+    *(هذا الأمر يشمل خطوة البناء `npm run build` ثم النشر إلى فرع `gh-pages`.)*
+
+### خيارات التعديل (Editing Options)
+
+يمكنك التعديل على المشروع بالطريقة التي تفضلها:
+
+  * **باستخدام IDE المفضل لديك:** قم بالتعديل محلياً، ثم قم بالتثبيت والدفع (`git push`).
+  * **GitHub Codespaces:** يمكنك فتح بيئة تطوير سحابية جاهزة بالكامل مباشرة من صفحة المستودع عبر زر **`Code`** ثم اختيار **`Codespaces`**.
+  * **محرر GitHub المباشر:** يمكنك إجراء تعديلات سريعة عبر واجهة GitHub الويب (عبر الضغط على أيقونة القلم).
+
+### ربط نطاق مخصص (Custom Domain)
+
+**نعم، يمكنك ذلك\!**
+
+1.  انتقل إلى إعدادات المشروع: `Project > Settings > Pages`.
+2.  اضغط على **`Connect Domain`** وأدخل النطاق الخاص بك.
+
+-----

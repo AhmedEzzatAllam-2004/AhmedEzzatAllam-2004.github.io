@@ -5,43 +5,43 @@ import { Calendar, MapPin, Building } from "lucide-react";
 const Experience = () => {
   const experiences = [
     {
-      title: "Senior [Your Role]",
-      company: "Company Name",
-      location: "City, Country",
-      period: "2020 - Present",
-      description: "Leading strategic initiatives and driving digital transformation across multiple business units. Responsible for managing cross-functional teams and delivering high-impact projects.",
+      title: "Data Science & AI Undergraduate",
+      company: "University of Science and Technology, Zewail City",
+      location: "Giza, Egypt",
+      period: "2024 - Present",
+      description: "Pursuing a specialized degree in Computer Science with a focus on Artificial Intelligence. Building a robust technical foundation in algorithms, system architecture, and software engineering.",
       achievements: [
-        "Increased operational efficiency by 35%",
-        "Led team of 15+ professionals",
-        "Implemented new processes saving $2M annually"
+        "Consistently leading technical teams in major academic projects",
+        "Conducting research on intersection of Neuroscience and AI (Project Neuro-Gen)",
+        "Mastering advanced Data Structures and Algorithms in C++"
       ],
-      skills: ["Leadership", "Strategy", "Project Management", "Innovation"]
+      skills: ["Data Science", "AI", "Research", "Team Leadership"]
     },
     {
-      title: "[Previous Role]",
-      company: "Previous Company",
-      location: "City, Country", 
-      period: "2017 - 2020",
-      description: "Managed key client relationships and developed comprehensive business solutions. Focused on process optimization and team development.",
+      title: "Python Automation Developer",
+      company: "Self-Initiated Projects",
+      location: "Remote", 
+      period: "2025",
+      description: "Developed custom automation scripts and web scrapers to facilitate efficient data extraction and processing from dynamic web sources.",
       achievements: [
-        "Grew client portfolio by 50%",
-        "Reduced project delivery time by 25%",
-        "Mentored 10+ junior team members"
+        "Engineered a dynamic Web Scraper using Selenium & Python",
+        "Automated data collection pipelines for large-scale datasets",
+        "Optimized script performance and handled complex web elements"
       ],
-      skills: ["Client Relations", "Business Development", "Process Optimization"]
+      skills: ["Python", "Selenium", "Scripting", "Backend Logic"]
     },
     {
-      title: "[Earlier Role]",
-      company: "Earlier Company",
-      location: "City, Country",
-      period: "2015 - 2017",
-      description: "Started career focusing on [specific area]. Gained expertise in foundational skills while contributing to various projects and initiatives.",
+      title: "C++ Software Architect",
+      company: "Traffic Simulation System (Project)",
+      location: "Academic Project",
+      period: "Late 2025",
+      description: "Designed and implemented a comprehensive city traffic simulation engine using advanced Object-Oriented Programming (OOP) principles.",
       achievements: [
-        "Completed certification in [relevant field]",
-        "Contributed to 5+ major projects",
-        "Received recognition for outstanding performance"
+        "Designed complex logic for autonomous lane and intersection management",
+        "Implemented Scalable Architecture using Inheritance and Polymorphism",
+        "Simulated real-world traffic flow and queuing systems"
       ],
-      skills: ["Technical Skills", "Analysis", "Communication"]
+      skills: ["C++", "OOP", "System Design", "Algorithms"]
     }
   ];
 

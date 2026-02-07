@@ -6,45 +6,62 @@ import { ExternalLink, Github, Calendar } from "lucide-react";
 const Projects = () => {
   const projects = [
     {
-      title: "Strategic Digital Transformation",
-      description: "Led comprehensive digital transformation initiative across organization, implementing new technologies and processes to improve efficiency and customer experience.",
-      image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=400&fit=crop",
-      technologies: ["Strategy", "Process Design", "Change Management", "Technology Integration"],
-      date: "2023",
-      results: ["40% efficiency improvement", "25% cost reduction", "$3M annual savings"],
-      link: "#",
-      github: "#"
+      title: "Restaurant Management System",
+      description: "A comprehensive management system built with C# and SQL. Designed to handle restaurant operations including order processing, menu management, and staff authentication with a robust database backend.",
+      image: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=600&h=400&fit=crop", 
+      technologies: ["C#", "SQL Server", "Database Design", "HTML"],
+      date: "2025", 
+      results: [
+        "Designed normalized Database Schema & ERD", 
+        "Implemented Secure Login & Authentication", 
+        "Developed C# Backend for order logic"      
+      ],
+      link: "https://github.com/AhmedEzzatAllam-2004/RestaurantSystem/blob/master/README.md", 
+      github: "https://github.com/AhmedEzzatAllam-2004/RestaurantSystem"
     },
     {
-      title: "Cross-Functional Team Optimization",
-      description: "Restructured and optimized cross-functional teams to enhance collaboration and productivity. Implemented new workflows and communication protocols.",
-      image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop",
-      technologies: ["Team Leadership", "Process Optimization", "Communication", "Performance Management"],
-      date: "2022",
-      results: ["50% faster delivery", "Improved team satisfaction", "Higher quality outputs"],
-      link: "#",
-      github: "#"
+      title: "Recruiting Data Analysis Dashboard",
+      description: "A comprehensive HR analytics dashboard designed to track hiring KPIs, visualize candidate pipelines, and improve recruitment efficiency using advanced Excel and Power BI techniques.",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80", 
+      technologies: ["Excel", "Power BI", "Data Analysis", "Pivot Tables"],
+      date: "2024",
+      results: [
+        "Visualized hiring KPIs & candidate pipelines",
+        "Reduced time-to-hire through data insights",
+        "Created interactive dashboards for HR decision making"
+      ],
+      link: "https://github.com/AhmedEzzatAllam-2004/Recruiting-Dashboard/blob/main/README.md", 
+      github: "https://github.com/AhmedEzzatAllam-2004/Recruiting-Dashboard"
     },
     {
-      title: "Customer Experience Enhancement",
-      description: "Designed and implemented customer experience improvement program resulting in higher satisfaction scores and increased retention rates.",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
-      technologies: ["Customer Research", "Data Analysis", "UX Design", "Implementation"],
-      date: "2022",
-      results: ["35% satisfaction increase", "20% retention improvement", "Reduced complaints by 60%"],
-      link: "#",
-      github: "#"
+      title: "Enterprise Data Governance Framework",
+      description: "A strategic security framework establishing data protection policies, role-based access controls (RBAC), and compliance standards (GDPR/CCPA) to ensure organizational data integrity.",
+      image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&q=80", // صورة قفل/أمان
+      technologies: ["Data Security", "Compliance", "Risk Management", "Documentation"],
+      date: "2024",
+      results: [
+        "Defined comprehensive data security policies",
+        "Implemented Role-Based Access Control (RBAC) models",
+        "Ensured compliance with data protection regulations"
+      ],
+      link: "https://github.com/AhmedEzzatAllam-2004/Egyptian-Real-Estate-Data-Governance/blob/main/README.md",
+      github: "https://github.com/AhmedEzzatAllam-2004/Egyptian-Real-Estate-Data-Governance"
     },
     {
-      title: "Innovation Lab Initiative",
-      description: "Established and managed innovation lab to foster creativity and develop new solutions. Led ideation sessions and prototype development.",
-      image: "https://images.unsplash.com/photo-1553484771-371a605b060b?w=600&h=400&fit=crop",
-      technologies: ["Innovation Management", "Research", "Prototyping", "Project Coordination"],
-      date: "2021",
-      results: ["10 new concepts developed", "3 successful implementations", "Patent applications filed"],
-      link: "#",
-      github: "#"
+      title: "eBay Advanced Market Analyzer",
+      description: "A full-stack market intelligence tool using Streamlit and Selenium. Features live browser automation to scrape 'Frequently Bought Together' data, combined with eBay API for real-time pricing analysis and 3D visualizations.",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop", 
+      technologies: ["Streamlit", "Selenium", "Python", "Plotly", "eBay API"],
+      date: "2025",
+      results: [
+        "Developed a hybrid data pipeline using eBay API & Selenium",
+        "Built an interactive Dashboard with live browser automation",
+        "Implemented 3D visualizations & Network Graphs for market analysis"
+      ],
+      link: "https://github.com/AhmedEzzatAllam-2004/eBay-Advanced-Market-Analyzer",
+      github: "https://github.com/AhmedEzzatAllam-2004/eBay-Advanced-Market-Analyzer"
     }
+    
   ];
 
   return (
@@ -123,19 +140,28 @@ const Projects = () => {
 
                   {/* Action Buttons */}
                   <div className="flex space-x-3">
+                    {/* View Details Button */}
                     <Button
+                      asChild 
                       size="sm"
-                      className="bg-primary hover:bg-primary-hover text-primary-foreground flex-1"
+                      className="bg-primary hover:bg-primary-hover text-primary-foreground flex-1 cursor-pointer"
                     >
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      View Details
+                      <a href={project.link} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        View Details
+                      </a>
                     </Button>
+
+                    {/* GitHub Button */}
                     <Button
+                      asChild 
                       size="sm"
                       variant="outline"
-                      className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                      className="border-primary text-primary hover:bg-primary hover:text-primary-foreground cursor-pointer"
                     >
-                      <Github className="w-4 h-4" />
+                      <a href={project.github} target="_blank" rel="noopener noreferrer">
+                        <Github className="w-4 h-4" />
+                      </a>
                     </Button>
                   </div>
                 </CardContent>
