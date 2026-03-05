@@ -7,7 +7,7 @@
 
 | خاصية | القيمة |
 | :--- | :--- |
-| **المطور** | أحمد عزت (Ahmed Ezzat) |
+| **المطور** | (Ahmed Ezzat) |
 | **الرابط المباشر** | [🔗 زيارة الموقع الآن](https://ahmedezzatallam-2004.github.io/#) |
 | **المستودع (Repo)** | `AhmedEzzatAllam-2004/AhmedEzzatAllam-2004.github.io` |
 
