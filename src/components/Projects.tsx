@@ -6,83 +6,69 @@ import { ExternalLink, Github, Calendar } from "lucide-react";
 const Projects = () => {
   const projects = [
     {
-      title: "Restaurant Management System",
-      description: "A comprehensive management system built with C# and SQL. Designed to handle restaurant operations including order processing, menu management, and staff authentication with a robust database backend.",
-      image: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=600&h=400&fit=crop", 
-      technologies: ["C#", "SQL Server", "Database Design", "HTML"],
-      date: "2025", 
-      results: [
-        "Designed normalized Database Schema & ERD", 
-        "Implemented Secure Login & Authentication", 
-        "Developed C# Backend for order logic"      
-      ],
-      link: "https://github.com/AhmedEzzatAllam-2004/RestaurantSystem/blob/master/README.md", 
-      github: "https://github.com/AhmedEzzatAllam-2004/RestaurantSystem"
+      title: "Strategic Digital Transformation",
+      description: "Led comprehensive digital transformation initiative across organization, implementing new technologies and processes to improve efficiency and customer experience.",
+      image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=400&fit=crop",
+      technologies: ["Strategy", "Process Design", "Change Management", "Technology Integration"],
+      date: "2023",
+      results: ["40% efficiency improvement", "25% cost reduction", "$3M annual savings"],
+      link: "#",
+      github: "#"
     },
     {
-      title: "Recruiting Data Analysis Dashboard",
-      description: "A comprehensive HR analytics dashboard designed to track hiring KPIs, visualize candidate pipelines, and improve recruitment efficiency using advanced Excel and Power BI techniques.",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80", 
-      technologies: ["Excel", "Power BI", "Data Analysis", "Pivot Tables"],
-      date: "2024",
-      results: [
-        "Visualized hiring KPIs & candidate pipelines",
-        "Reduced time-to-hire through data insights",
-        "Created interactive dashboards for HR decision making"
-      ],
-      link: "https://github.com/AhmedEzzatAllam-2004/Recruiting-Dashboard/blob/main/README.md", 
-      github: "https://github.com/AhmedEzzatAllam-2004/Recruiting-Dashboard"
+      title: "Cross-Functional Team Optimization",
+      description: "Restructured and optimized cross-functional teams to enhance collaboration and productivity. Implemented new workflows and communication protocols.",
+      image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop",
+      technologies: ["Team Leadership", "Process Optimization", "Communication", "Performance Management"],
+      date: "2022",
+      results: ["50% faster delivery", "Improved team satisfaction", "Higher quality outputs"],
+      link: "#",
+      github: "#"
     },
     {
-      title: "Enterprise Data Governance Framework",
-      description: "A strategic security framework establishing data protection policies, role-based access controls (RBAC), and compliance standards (GDPR/CCPA) to ensure organizational data integrity.",
-      image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&q=80", // صورة قفل/أمان
-      technologies: ["Data Security", "Compliance", "Risk Management", "Documentation"],
-      date: "2024",
-      results: [
-        "Defined comprehensive data security policies",
-        "Implemented Role-Based Access Control (RBAC) models",
-        "Ensured compliance with data protection regulations"
-      ],
-      link: "https://github.com/AhmedEzzatAllam-2004/Egyptian-Real-Estate-Data-Governance/blob/main/README.md",
-      github: "https://github.com/AhmedEzzatAllam-2004/Egyptian-Real-Estate-Data-Governance"
+      title: "Customer Experience Enhancement",
+      description: "Designed and implemented customer experience improvement program resulting in higher satisfaction scores and increased retention rates.",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+      technologies: ["Customer Research", "Data Analysis", "UX Design", "Implementation"],
+      date: "2022",
+      results: ["35% satisfaction increase", "20% retention improvement", "Reduced complaints by 60%"],
+      link: "#",
+      github: "#"
     },
     {
-      title: "eBay Advanced Market Analyzer",
-      description: "A full-stack market intelligence tool using Streamlit and Selenium. Features live browser automation to scrape 'Frequently Bought Together' data, combined with eBay API for real-time pricing analysis and 3D visualizations.",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop", 
-      technologies: ["Streamlit", "Selenium", "Python", "Plotly", "eBay API"],
-      date: "2025",
-      results: [
-        "Developed a hybrid data pipeline using eBay API & Selenium",
-        "Built an interactive Dashboard with live browser automation",
-        "Implemented 3D visualizations & Network Graphs for market analysis"
-      ],
-      link: "https://github.com/AhmedEzzatAllam-2004/eBay-Advanced-Market-Analyzer",
-      github: "https://github.com/AhmedEzzatAllam-2004/eBay-Advanced-Market-Analyzer"
+      title: "Innovation Lab Initiative",
+      description: "Established and managed innovation lab to foster creativity and develop new solutions. Led ideation sessions and prototype development.",
+      image: "https://images.unsplash.com/photo-1553484771-371a605b060b?w=600&h=400&fit=crop",
+      technologies: ["Innovation Management", "Research", "Prototyping", "Project Coordination"],
+      date: "2021",
+      results: ["10 new concepts developed", "3 successful implementations", "Patent applications filed"],
+      link: "#",
+      github: "#"
     }
-    
   ];
 
   return (
-    <section id="projects" className="py-20 bg-gradient-to-br from-muted/20 to-accent/5">
+    <section id="projects" className="py-20">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">Featured Projects</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Showcasing impactful initiatives and successful outcomes from my professional journey
-            </p>
+          <div className="mb-20 reveal">
+            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">✻ Selected Work</p>
+            <h2 className="font-display text-6xl md:text-8xl text-foreground">
+              Recent <span className="italic-serif">projects.</span>
+            </h2>
           </div>
+
 
           {/* Projects Grid */}
           <div className="grid md:grid-cols-2 gap-8">
             {projects.map((project, index) => (
               <Card
                 key={index}
-                className="bg-card/50 backdrop-blur-sm border-border/50 shadow-card hover:shadow-professional transition-all duration-300 hover:scale-105 overflow-hidden group"
+                data-delay={(index % 2) * 150}
+                className="reveal-scale bg-card/50 backdrop-blur-sm border-border/50 shadow-card hover:shadow-professional transition-all duration-500 hover:scale-105 overflow-hidden group"
               >
+
                 {/* Project Image */}
                 <div className="relative h-48 overflow-hidden">
                   <img
@@ -140,28 +126,19 @@ const Projects = () => {
 
                   {/* Action Buttons */}
                   <div className="flex space-x-3">
-                    {/* View Details Button */}
                     <Button
-                      asChild 
                       size="sm"
-                      className="bg-primary hover:bg-primary-hover text-primary-foreground flex-1 cursor-pointer"
+                      className="bg-primary hover:bg-primary-hover text-primary-foreground flex-1"
                     >
-                      <a href={project.link} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        View Details
-                      </a>
+                      <ExternalLink className="w-4 h-4 mr-2" />
+                      View Details
                     </Button>
-
-                    {/* GitHub Button */}
                     <Button
-                      asChild 
                       size="sm"
                       variant="outline"
-                      className="border-primary text-primary hover:bg-primary hover:text-primary-foreground cursor-pointer"
+                      className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
                     >
-                      <a href={project.github} target="_blank" rel="noopener noreferrer">
-                        <Github className="w-4 h-4" />
-                      </a>
+                      <Github className="w-4 h-4" />
                     </Button>
                   </div>
                 </CardContent>

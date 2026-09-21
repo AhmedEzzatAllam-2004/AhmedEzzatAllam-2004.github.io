@@ -1,28 +1,28 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Users, Target, Award, TrendingUp } from "lucide-react";
+import { Code, Brain, BookOpen, Trophy } from "lucide-react";
 
 const About = () => {
   const highlights = [
     {
-      icon: Users,
-      title: "Team Leadership",
-      description: "Led cross-functional teams of 10+ professionals"
+      icon: Code,
+      title: "Programming Skills",
+      description: "Proficient in multiple programming languages and frameworks"
     },
     {
-      icon: Target,
-      title: "Strategic Planning",
-      description: "Developed and executed strategic initiatives"
+      icon: Brain,
+      title: "AI & Machine Learning",
+      description: "Experience with ML algorithms and deep learning frameworks"
     },
     {
-      icon: Award,
-      title: "Industry Recognition",
-      description: "Recognized for excellence and innovation"
+      icon: BookOpen,
+      title: "Continuous Learning",
+      description: "Always exploring new technologies and staying updated with trends"
     },
     {
-      icon: TrendingUp,
-      title: "Growth Focused",
-      description: "Delivered 30% revenue growth year-over-year"
+      icon: Trophy,
+      title: "Academic Excellence",
+      description: "Strong academic performance with focus on practical applications"
     }
   ];
 
@@ -50,34 +50,38 @@ const About = () => {
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">About Me</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              A dedicated and ambitious student with a strong foundation in programming, data science, and AI. 
+          <div className="mb-20 reveal">
+            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">✻ About</p>
+            <h2 className="font-display text-6xl md:text-8xl text-foreground mb-8">
+              A student <span className="italic-serif">obsessed</span><br />with building.
+            </h2>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
+              A dedicated and ambitious student with a strong foundation in programming, data science, and AI.
               I enjoy building projects, learning new technologies, and collaborating with others to create impactful solutions.
-
             </p>
           </div>
 
+
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left Column - Story */}
-            <div className="space-y-6">
+            <div className="space-y-6 reveal-left">
+
               <Card className="bg-card/50 backdrop-blur-sm border-border/50 shadow-card">
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-semibold text-foreground mb-4">My Journey</h3>
                   <p className="text-muted-foreground leading-relaxed mb-4">
-                    With over 5 years of experience in [programming], I've had the privilege 
-                    of working with diverse teams and organizations to solve complex challenges 
-                    and drive meaningful change.
+                    As a Computer Science student specializing in Data Science and AI, I'm passionate 
+                    about exploring the intersection of technology and real-world problem solving. 
+                    My academic journey has equipped me with strong programming skills and analytical thinking.
                   </p>
                   <p className="text-muted-foreground leading-relaxed mb-4">
-                    My approach combines strategic thinking with hands-on execution, ensuring 
-                    that vision translates into tangible results. I believe in the power of 
-                    collaboration and continuous learning.
+                    I believe in learning by doing, which is why I actively work on projects that 
+                    challenge me to apply theoretical knowledge to practical solutions. I'm always 
+                    eager to collaborate and learn from others in the tech community.
                   </p>
                   <p className="text-muted-foreground leading-relaxed">
-                    When I'm not working, you can find me exploring new technologies, 
-                    mentoring young professionals, or contributing to community initiatives.
+                    When I'm not coding or studying, you can find me exploring new AI research papers, 
+                    participating in hackathons, or contributing to open-source projects.
                   </p>
                 </CardContent>
               </Card>
@@ -102,13 +106,14 @@ const About = () => {
             </div>
 
             {/* Right Column - Highlights */}
-            <div className="space-y-6">
+            <div className="space-y-6 reveal-right">
               <h3 className="text-2xl font-semibold text-foreground mb-6">Key Highlights</h3>
               {highlights.map((highlight, index) => (
+                <div key={index} className="reveal" data-delay={index * 120}>
                 <Card
-                  key={index}
                   className="bg-card/50 backdrop-blur-sm border-border/50 shadow-card hover:shadow-professional transition-all duration-300 hover:scale-105"
                 >
+
                   <CardContent className="p-6">
                     <div className="flex items-start space-x-4">
                       <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
@@ -125,7 +130,9 @@ const About = () => {
                     </div>
                   </CardContent>
                 </Card>
+                </div>
               ))}
+
             </div>
           </div>
         </div>

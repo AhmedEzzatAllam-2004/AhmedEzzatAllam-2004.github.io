@@ -2,8 +2,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Linkedin, Github, Facebook, Instagram, Send } from "lucide-react";
-import React, { useCallback, useState } from "react";
+import { Mail, Phone, MapPin, Linkedin, Send } from "lucide-react";
+import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 
 const Contact = () => {
@@ -11,93 +11,66 @@ const Contact = () => {
     {
       icon: Mail,
       title: "Email",
-      value: "ahmedezzatallamshaker@gmail.com",
-      link: "mailto:ahmedezzatallamshaker@gmail.com"
+      value: "your.email@example.com",
+      link: "mailto:your.email@example.com"
     },
     {
       icon: Phone,
       title: "Phone",
-      value: "+201140674371",
-      link: "tel:+201140674371"
+      value: "+1 (555) 123-4567",
+      link: "tel:+15551234567"
     },
     {
       icon: MapPin,
       title: "Location",
-      value: "🌍 Giza, 6 October, Egypt",
+      value: "City, Country",
       link: "#"
     },
     {
       icon: Linkedin,
       title: "LinkedIn",
-      value: "linkedin.com/in/ahmedezzatallam",
-      link: "https://www.linkedin.com/in/ahmedezzatallam"
-    },
-    {
-      icon: Github,
-      title: "GitHub",
-      value: "github.com/AhmedEzzatAllam-2004",
-      link: "https://github.com/AhmedEzzatAllam-2004"
-    },
-    {
-      icon: Facebook,
-      title: "Facebook",
-      value: "facebook.com/share/1B2PNh6Uwq/",
-      link: "https://www.facebook.com/share/1B2PNh6Uwq/"
-    },
-    {
-      icon: Instagram,
-      title: "Instagram",
-      value: "@ahmed.ezzat_2004",
-      link: "https://www.instagram.com/ahmed.ezzat_2004"
+      value: "linkedin.com/in/yourprofile",
+      link: "https://linkedin.com/in/yourprofile"
     }
   ];
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  
   const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-
     const payload = {
       firstName: data.get("firstName"),
       lastName: data.get("lastName"),
       email: data.get("email"),
       subject: data.get("subject"),
       message: data.get("message"),
+      timestamp: new Date().toISOString(),
     };
 
     try {
       setIsSubmitting(true);
-      const res = await fetch("https://gwylvznrtdiazdamypdn.supabase.co/functions/v1/send-whatsapp", {
+      const response = await fetch('/api/send-whatsapp', {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload), // ✅ كده البيانات بتتبعت
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
 
-      const result = await res.json();
-
-      if (res.ok && result.success) {
+      if (response.ok) {
         toast({
-          title: "Message Sent ✅",
-          description: "Your message was delivered via WhatsApp successfully.",
+          title: "تم الإرسال بنجاح!",
+          description: "تم إرسال رسالتك عبر WhatsApp بنجاح.",
         });
         form.reset();
       } else {
-        console.error(result);
-        toast({
-          title: "Error ❌",
-          description: "Failed to send the message via WhatsApp.",
-          variant: "destructive",
-        });
+        throw new Error('Failed to send message');
       }
     } catch (error) {
       console.error("Error sending WhatsApp message:", error);
       toast({
-        title: "Error",
-        description: "Something went wrong while sending the message.",
+        title: "خطأ في الإرسال",
+        description: "فشل في إرسال الرسالة. حاول مرة أخرى.",
         variant: "destructive",
       });
     } finally {
@@ -106,20 +79,24 @@ const Contact = () => {
   }, []);
 
   return (
-    <section id="contact" className="py-20 bg-background">
+    <section id="contact" className="py-20">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">Let's Connect</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <div className="mb-20 reveal">
+            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">✻ Contact</p>
+            <h2 className="font-display text-6xl md:text-8xl text-foreground mb-8">
+              Let's <span className="italic-serif">connect.</span>
+            </h2>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
               Ready to discuss opportunities or just want to say hello? I'd love to hear from you.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Information */}
-            <div className="space-y-8">
+            <div className="space-y-8 reveal-left">
+
               <div>
                 <h3 className="text-2xl font-semibold text-foreground mb-6">Get In Touch</h3>
                 <p className="text-muted-foreground leading-relaxed mb-8">
@@ -152,6 +129,22 @@ const Contact = () => {
                   </Card>
                 ))}
               </div>
+
+              {/* Call to Action */}
+              <Card className="bg-gradient-to-br from-primary/5 to-accent/5 border-primary/20">
+                <CardContent className="p-6 text-center">
+                  <h4 className="text-lg font-semibold text-foreground mb-2">
+                    Professional Opportunities
+                  </h4>
+                  <p className="text-muted-foreground mb-4">
+                    Open to discussing new opportunities and collaborations
+                  </p>
+                  <Button className="bg-primary hover:bg-primary-hover text-primary-foreground">
+                    <Linkedin className="w-4 h-4 mr-2" />
+                    Connect on LinkedIn
+                  </Button>
+                </CardContent>
+              </Card>
             </div>
 
             {/* Contact Form */}
@@ -162,30 +155,69 @@ const Contact = () => {
                   
                   <form className="space-y-6" onSubmit={handleSubmit}>
                     <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-foreground mb-2">First Name</label>
-                        <Input name="firstName" required />
+            <div className="reveal-right">
+
+                        <label className="block text-sm font-medium text-foreground mb-2">
+                          First Name
+                        </label>
+                        <Input
+                          name="firstName"
+                          placeholder="Your first name"
+                          className="bg-background border-border focus:border-primary focus:ring-primary"
+                          required
+                        />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-foreground mb-2">Last Name</label>
-                        <Input name="lastName" required />
+                        <label className="block text-sm font-medium text-foreground mb-2">
+                          Last Name
+                        </label>
+                        <Input
+                          name="lastName"
+                          placeholder="Your last name"
+                          className="bg-background border-border focus:border-primary focus:ring-primary"
+                          required
+                        />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">Email</label>
-                      <Input type="email" name="email" required />
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        Email
+                      </label>
+                      <Input
+                        type="email"
+                        name="email"
+                        placeholder="your.email@example.com"
+                        className="bg-background border-border focus:border-primary focus:ring-primary"
+                        required
+                      />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">Subject</label>
-                      <Input name="subject" required />
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        Subject
+                      </label>
+                      <Input
+                        name="subject"
+                        placeholder="What would you like to discuss?"
+                        className="bg-background border-border focus:border-primary focus:ring-primary"
+                        required
+                      />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">Message</label>
-                      <Textarea name="message" rows={6} required />
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        Message
+                      </label>
+                      <Textarea
+                        name="message"
+                        placeholder="Tell me more about your inquiry..."
+                        rows={6}
+                        className="bg-background border-border focus:border-primary focus:ring-primary resize-none"
+                        required
+                      />
                     </div>
+
 
                     <Button
                       type="submit"
@@ -193,7 +225,7 @@ const Contact = () => {
                       className="w-full bg-primary hover:bg-primary-hover text-primary-foreground py-3 font-semibold transition-all duration-300 hover:scale-105"
                     >
                       <Send className="w-5 h-5 mr-2" />
-                      {isSubmitting ? "Sending..." : "Send Message"}
+                      {isSubmitting ? "جاري الإرسال..." : "إرسال عبر WhatsApp"}
                     </Button>
                   </form>
                 </CardContent>
@@ -207,4 +239,3 @@ const Contact = () => {
 };
 
 export default Contact;
-

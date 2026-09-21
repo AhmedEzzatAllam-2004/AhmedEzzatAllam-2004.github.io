@@ -46,16 +46,17 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="py-20 bg-background">
+    <section id="experience" className="py-20">
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">Professional Experience</h2>
-            <p className="text-xl text-muted-foreground">
-              A journey of growth, learning, and meaningful contributions
-            </p>
+          <div className="mb-20 reveal">
+            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">✻ Experience</p>
+            <h2 className="font-display text-6xl md:text-8xl text-foreground">
+              A journey of <span className="italic-serif">growth.</span>
+            </h2>
           </div>
+
 
           {/* Timeline */}
           <div className="relative">
@@ -63,7 +64,7 @@ const Experience = () => {
             <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-transparent"></div>
 
             {experiences.map((exp, index) => (
-              <div key={index} className="relative mb-12 last:mb-0">
+              <div key={index} className="relative mb-12 last:mb-0 reveal" data-delay={index * 150}>
                 {/* Timeline Dot */}
                 <div className="absolute left-6 w-4 h-4 bg-primary rounded-full border-4 border-background shadow-professional"></div>
 
