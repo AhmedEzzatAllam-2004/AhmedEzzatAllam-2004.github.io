@@ -8,8 +8,8 @@ import ProjectRail, { railProjects } from "@/components/ProjectRail";
 import { ContactsSlide } from "@/components/ContactsSlide";
 import ScrambleText from "@/components/ScrambleText";
 import { WhatIKnow } from "@/components/Skills";
-import { motion } from "framer-motion";
 import WaveCanvas from "@/components/WaveCanvas";
+import SplineAboutBackground from "@/components/SplineAboutBackground";
 
 const navLinks = [
   { label: "ABOUT", href: "#about" },
@@ -23,6 +23,8 @@ const Logo = () => (
   <img
     src="/photo/me.png"
     alt="AE Logo"
+    width={48}
+    height={48}
     className="w-10 h-10 sm:w-12 sm:h-12 object-contain transition-transform duration-300 hover:scale-105"
     style={{ filter: "contrast(1.5) brightness(0.7)", mixBlendMode: "screen" }}
   />
@@ -131,17 +133,7 @@ const projects = [
 
 const Index = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [showSpline, setShowSpline] = useState(false);
-  const splineWrapRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 0px)");
-    const update = () => setShowSpline(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
 
   useEffect(() => {
     const prev = document.body.style.overflow;
@@ -150,39 +142,6 @@ const Index = () => {
       document.body.style.overflow = prev;
     };
   }, [menuOpen]);
-
-  useEffect(() => {
-    const section = aboutRef.current;
-    if (!section) return;
-
-    const getCanvas = (): HTMLCanvasElement | null => {
-      const viewer = splineWrapRef.current?.querySelector("spline-viewer") as
-        | (HTMLElement & { shadowRoot: ShadowRoot | null })
-        | null;
-      return (viewer?.shadowRoot?.querySelector("canvas") ??
-        splineWrapRef.current?.querySelector("canvas") ??
-        null) as HTMLCanvasElement | null;
-    };
-
-    const forward = (e: PointerEvent) => {
-      const canvas = getCanvas();
-      if (!canvas) return;
-      for (const type of ["pointermove", "mousemove"]) {
-        canvas.dispatchEvent(
-          new MouseEvent(type, {
-            clientX: e.clientX,
-            clientY: e.clientY,
-            bubbles: true,
-            cancelable: true,
-            view: window,
-          })
-        );
-      }
-    };
-
-    section.addEventListener("pointermove", forward);
-    return () => section.removeEventListener("pointermove", forward);
-  }, []);
 
   const downloadCV = () => {
     const link = document.createElement("a");
@@ -202,6 +161,8 @@ const Index = () => {
           muted
           loop
           playsInline
+          preload="auto"
+          poster="/photo/hero-poster.jpg"
           className="absolute inset-0 h-full w-full object-cover lg:scale-[1.2]"
           src={heroVideo}
         />
@@ -350,25 +311,8 @@ const Index = () => {
 
       {/* ===== ABOUT ===== */}
       <section ref={aboutRef} id="about" className="relative overflow-hidden border-t border-white/10 px-5 sm:px-6 md:px-10 lg:px-14 md:min-h-screen flex flex-col justify-center py-16 md:py-32">
-        <div className="absolute inset-0 z-0 pointer-events-none" ref={splineWrapRef}>
-          {showSpline ? (
-            <>
-              {/* @ts-expect-error spline-viewer web component */}
-              <spline-viewer
-                url="https://prod.spline.design/Slk6b8kz3LRlKiyk/scene.splinecode"
-                style={{ width: "100%", height: "100%", display: "block" }}
-              />
-            </>
-          ) : (
-            <div
-              className="h-full w-full"
-              style={{
-                background:
-                  "radial-gradient(ellipse at 50% 0%, rgba(220,38,38,0.18), transparent 60%), radial-gradient(ellipse at 80% 100%, rgba(255,255,255,0.06), transparent 55%)",
-              }}
-            />
-          )}
-        </div>
+        {/* Spline 3D background — السكريبت والمشهد بيتحمّلوا بس على الشاشات الكبيرة، وبس لما القسم يقرّب من الشاشة */}
+        <SplineAboutBackground containerRef={aboutRef} />
         <div className="absolute inset-0 z-[1] bg-black/70 pointer-events-none" />
 
         <div className="relative z-10 w-full">

@@ -17,6 +17,13 @@ const Typewriter = ({ text, speed = 25, className = "", startOnVisible = true }:
     if (startOnVisible && !visible) return;
     if (started.current) return;
     started.current = true;
+
+    // لو المستخدم مفعّل "تقليل الحركة": النص بيظهر كامل فوراً من غير أنيميشن كتابة.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setOut(text);
+      return;
+    }
+
     let i = 0;
     const id = setInterval(() => {
       i++;
