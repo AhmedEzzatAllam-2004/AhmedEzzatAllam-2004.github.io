@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <link rel="icon" type="image/png" href="/photo/mee.png" />
 
     <title>Ahmed Ezzat | Portfolio</title>
-    
+
     <meta name="description" content="Ahmed Ezzat - Computer Science Student & Data Scientist Portfolio" />
     <meta name="author" content="Ahmed Ezzat" />
 
@@ -18,12 +18,58 @@
 
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- الخطوط ومكتبة Spline (تمت إضافتها من الملف الثاني) -->
+    <!--
+      الخطوط: كانت بتتحمّل بـ <link rel="stylesheet"> عادي، وده بيوقف رسم الصفحة لحد ما
+      الطلب يرجع (ده اللي كان مسبب الـ render-blocking وتأخير ظهور الـ H1 في الـ Hero).
+      دلوقتي بتتحمّل بطريقة الـ "preload + onload" القياسية: التحميل بيبدأ فوراً وبنفس
+      الأولوية، لكن المتصفح مابيستناش الـ CSS يخلّص قبل ما يرسم أول حاجة — وفيه fallback
+      جوه <noscript> لو الـ JS متقفل. وكمان دمجت طلب Inter اللي كان مكرر في index.css
+      مع Instrument Serif في طلب واحد بدل اتنين.
+    -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link href="https://db.onlinewebfonts.com/c/d08bafd725a4cfc309efb5a88e0b63a5?family=basis33" rel="stylesheet" />
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.11.9/build/spline-viewer.js"></script>
+    <link rel="preconnect" href="https://db.onlinewebfonts.com" />
+
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+
+    <link
+      rel="preload"
+      as="style"
+      href="https://db.onlinewebfonts.com/c/d08bafd725a4cfc309efb5a88e0b63a5?family=basis33"
+    />
+    <link
+      rel="stylesheet"
+      href="https://db.onlinewebfonts.com/c/d08bafd725a4cfc309efb5a88e0b63a5?family=basis33"
+      media="print"
+      onload="this.media='all'"
+    />
+
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap"
+      />
+      <link
+        rel="stylesheet"
+        href="https://db.onlinewebfonts.com/c/d08bafd725a4cfc309efb5a88e0b63a5?family=basis33"
+      />
+    </noscript>
+
+    <!--
+      سكريبت spline-viewer اتشال من هنا. كان بينزل على كل الأجهزة (موبايل، تابلت، ديسكتوب)
+      من غير فرق، وده كان السبب الرئيسي في تقل صفحة الـ About. دلوقتي بيتحمّل ديناميكياً
+      من جوه About.tsx، وبس على الشاشات اللي فعلاً هتعرض المشهد الـ 3D.
+    -->
   </head>
 
   <body>

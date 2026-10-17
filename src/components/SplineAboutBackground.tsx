@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
 const SPLINE_SCENE_URL = "https://prod.spline.design/Slk6b8kz3LRlKiyk/scene.splinecode";
+// ملحوظة: جرّبنا build/spline-viewer.webgl.js (نسخة WebGL بس، أصغر 34%) بس تبيّن إن
+// تقسيم WebGL/WebGPU لنسختين منفصلتين ميزة مش موجودة في النسخة 1.11.9 المثبّتة هنا —
+// ظهرت في نسخ أحدث من المكتبة. الطلب كان بيفشل (404) بصمت ويسيب الخلفية الاحتياطية
+// (gradient) ظاهرة للأبد بدل المشهد. رجعنا للملف العادي المضمون وجوده في النسخة دي.
 const SPLINE_SCRIPT_URL = "https://unpkg.com/@splinetool/viewer@1.11.9/build/spline-viewer.js";
 
 let splineScriptPromise: Promise<void> | null = null;
