@@ -1,137 +1,98 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Calendar, MapPin, Building } from "lucide-react";
+import Reveal from "@/components/Reveal";
+import ScrambleText from "@/components/ScrambleText";
+
+const experiences = [
+  {
+    year: "2024 — NOW",
+    role: "DATA SCIENCE & AI UNDERGRADUATE",
+    org: "University of Science and Technology, Zewail City — Giza, Egypt",
+    points: [
+      "Leading technical teams in major academic projects",
+      "Research on the intersection of Neuroscience and AI (Project Neuro-Gen)",
+      "Advanced Data Structures and Algorithms in C++",
+    ],
+  },
+  {
+    year: "2025",
+    role: "PYTHON AUTOMATION DEVELOPER",
+    org: "Self-Initiated Projects — Remote",
+    points: [
+      "Engineered a dynamic web scraper using Selenium & Python",
+      "Automated data collection pipelines for large-scale datasets",
+      "Optimized script performance on complex dynamic pages",
+    ],
+  },
+  {
+    year: "LATE 2025",
+    role: "C++ SOFTWARE ARCHITECT",
+    org: "Traffic Simulation System — Academic Project",
+    points: [
+      "Designed autonomous lane and intersection management logic",
+      "Scalable architecture using inheritance and polymorphism",
+      "Simulated real-world traffic flow and queuing systems",
+    ],
+  },
+];
 
 const Experience = () => {
-  const experiences = [
-    {
-      title: "Data Science & AI Undergraduate",
-      company: "University of Science and Technology, Zewail City",
-      location: "Giza, Egypt",
-      period: "2024 - Present",
-      description: "Pursuing a specialized degree in Computer Science with a focus on Artificial Intelligence. Building a robust technical foundation in algorithms, system architecture, and software engineering.",
-      achievements: [
-        "Consistently leading technical teams in major academic projects",
-        "Conducting research on intersection of Neuroscience and AI (Project Neuro-Gen)",
-        "Mastering advanced Data Structures and Algorithms in C++"
-      ],
-      skills: ["Data Science", "AI", "Research", "Team Leadership"]
-    },
-    {
-      title: "Python Automation Developer",
-      company: "Self-Initiated Projects",
-      location: "Remote", 
-      period: "2025",
-      description: "Developed custom automation scripts and web scrapers to facilitate efficient data extraction and processing from dynamic web sources.",
-      achievements: [
-        "Engineered a dynamic Web Scraper using Selenium & Python",
-        "Automated data collection pipelines for large-scale datasets",
-        "Optimized script performance and handled complex web elements"
-      ],
-      skills: ["Python", "Selenium", "Scripting", "Backend Logic"]
-    },
-    {
-      title: "C++ Software Architect",
-      company: "Traffic Simulation System (Project)",
-      location: "Academic Project",
-      period: "Late 2025",
-      description: "Designed and implemented a comprehensive city traffic simulation engine using advanced Object-Oriented Programming (OOP) principles.",
-      achievements: [
-        "Designed complex logic for autonomous lane and intersection management",
-        "Implemented Scalable Architecture using Inheritance and Polymorphism",
-        "Simulated real-world traffic flow and queuing systems"
-      ],
-      skills: ["C++", "OOP", "System Design", "Algorithms"]
-    }
-  ];
-
   return (
-    <section id="experience" className="py-20">
-      <div className="container mx-auto px-6">
-        <div className="max-w-4xl mx-auto">
-          {/* Section Header */}
-          <div className="mb-20 reveal">
-            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">✻ Experience</p>
-            <h2 className="font-display text-6xl md:text-8xl text-foreground">
-              A journey of <span className="italic-serif">growth.</span>
-            </h2>
-          </div>
+    <section
+      id="experience"
+      className="relative border-t border-white/10 md:min-h-screen flex flex-col justify-center py-16 md:py-32 overflow-hidden"
+    >
+      <div className="pointer-events-none absolute top-1/3 -right-40 h-[520px] w-[520px] rounded-full bg-red-600/[0.07] blur-[140px]" />
+      <div className="relative grid grid-cols-1 lg:grid-cols-[80px_1fr]">
+        <div className="hidden lg:flex items-start justify-center pt-2 border-r border-white/10">
+          <span className="font-pixel text-[10px] tracking-[0.4em] uppercase text-red-500 [writing-mode:vertical-lr] rotate-180">
+            03 / Timeline
+          </span>
+        </div>
 
+        <div className="px-5 sm:px-6 md:px-10 lg:px-14 min-w-0">
+          <Reveal>
+            <div className="flex items-end justify-between border-b border-white/15 pb-5 mb-2">
+              <h2
+                className="text-4xl sm:text-5xl md:text-6xl uppercase tracking-tight"
+                style={{ lineHeight: 0.85 }}
+              >
+                A JOURNEY OF{" "}
+                <span className="font-pixel text-[1.15em] leading-none">GROWTH</span>
+              </h2>
+              <span className="font-pixel text-[10px] tracking-[0.3em] text-white/70 hidden sm:block">
+                {experiences.length} ROLES
+              </span>
+            </div>
+          </Reveal>
 
-          {/* Timeline */}
-          <div className="relative">
-            {/* Timeline Line */}
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-transparent"></div>
-
-            {experiences.map((exp, index) => (
-              <div key={index} className="relative mb-12 last:mb-0 reveal" data-delay={index * 150}>
-                {/* Timeline Dot */}
-                <div className="absolute left-6 w-4 h-4 bg-primary rounded-full border-4 border-background shadow-professional"></div>
-
-                {/* Content */}
-                <div className="ml-20">
-                  <Card className="bg-card/50 backdrop-blur-sm border-border/50 shadow-card hover:shadow-professional transition-all duration-300">
-                    <CardContent className="p-8">
-                      {/* Header */}
-                      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-4">
-                        <div>
-                          <h3 className="text-2xl font-bold text-foreground mb-2">
-                            {exp.title}
-                          </h3>
-                          <div className="flex items-center text-primary font-semibold mb-2">
-                            <Building className="w-4 h-4 mr-2" />
-                            {exp.company}
-                          </div>
-                        </div>
-                        <div className="flex flex-col lg:items-end space-y-2">
-                          <div className="flex items-center text-muted-foreground">
-                            <Calendar className="w-4 h-4 mr-2" />
-                            {exp.period}
-                          </div>
-                          <div className="flex items-center text-muted-foreground">
-                            <MapPin className="w-4 h-4 mr-2" />
-                            {exp.location}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Description */}
-                      <p className="text-muted-foreground leading-relaxed mb-6">
-                        {exp.description}
-                      </p>
-
-                      {/* Achievements */}
-                      <div className="mb-6">
-                        <h4 className="text-lg font-semibold text-foreground mb-3">Key Achievements</h4>
-                        <ul className="space-y-2">
-                          {exp.achievements.map((achievement, idx) => (
-                            <li key={idx} className="flex items-start">
-                              <div className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                              <span className="text-muted-foreground">{achievement}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {/* Skills */}
-                      <div>
-                        <h4 className="text-lg font-semibold text-foreground mb-3">Skills Applied</h4>
-                        <div className="flex flex-wrap gap-2">
-                          {exp.skills.map((skill, idx) => (
-                            <Badge
-                              key={idx}
-                              variant="secondary"
-                              className="px-3 py-1 text-sm bg-accent text-accent-foreground"
-                            >
-                              {skill}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+          <div>
+            {experiences.map((e, i) => (
+              <Reveal key={e.role} delay={140 + i * 130}>
+                <div className="group relative grid lg:grid-cols-[190px_1fr] gap-3 lg:gap-12 border-b border-white/10 py-7 md:py-9">
+                  <span className="pointer-events-none absolute left-0 bottom-0 h-px w-0 bg-red-500 transition-all duration-700 group-hover:w-full" />
+                  <div className="flex items-center gap-4">
+                    <span className="font-pixel text-3xl text-white/10 transition-colors duration-500 group-hover:text-red-500">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <p className="font-pixel text-[11px] tracking-[0.2em] text-white/50">{e.year}</p>
+                  </div>
+                  <div className="min-w-0 transition-transform duration-500 lg:group-hover:translate-x-2">
+                    <h3 className="text-xl md:text-3xl uppercase tracking-tight transition-colors duration-500 group-hover:text-red-500 break-words">
+                      <ScrambleText text={e.role} className="inline-block" />
+                    </h3>
+                    <p className="font-pixel text-[10px] tracking-[0.2em] text-white/40 mt-2 uppercase">
+                      {e.org}
+                    </p>
+                    <ul className="mt-5 space-y-2 text-sm text-white/60 max-w-2xl">
+                      {e.points.map((p) => (
+                        <li key={p} className="flex gap-3">
+                          <span className="text-red-500">—</span>
+                          <span>{p}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>

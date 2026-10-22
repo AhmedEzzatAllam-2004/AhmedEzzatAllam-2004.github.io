@@ -36,6 +36,14 @@ const WaveCanvas = () => {
     let lastFrame = 0;
     let resizeTimer: number | undefined;
 
+    // ─── cached rect لاستخدامه في الـ touch events فقط ───
+    // عشان نتجنّب getBoundingClientRect() على كل touchmove (forced reflow).
+    // بنحدّث الـ cache على resize و scroll والـ visibility change بس.
+    let cachedRect: DOMRect | null = null;
+    const refreshRect = () => {
+      cachedRect = canvas.getBoundingClientRect();
+    };
+
     const MORPH_DELAY = 2000;
 
     const getQuality = () => {
@@ -82,6 +90,9 @@ const WaveCanvas = () => {
     const resize = () => {
       quality = getQuality();
       dpr = quality.dpr;
+      // نقرأ الـ offsetWidth/Height مع بعض (read batch)، وبعدين نكتب الـ width/height
+      // (write batch). ده pattern صحيح مابيعملش forced reflow — الـ reads كلها
+      // قبيل الـ writes، فالمتصفح مابيرجعش يعمل layout في النص.
       w = canvas.offsetWidth;
       h = canvas.offsetHeight;
       // لو الـ canvas لسه ملوش مقاس، getImageData هترمي error
@@ -91,6 +102,8 @@ const WaveCanvas = () => {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       generateTextPositions();
       initParticles();
+      // الـ rect اتغيّر بعد ما الـ canvas اتعمّل resize — نحدّث الـ cache.
+      refreshRect();
     };
 
     // على الموبايل شريط المتصفح بيظهر ويختفي وقت السكرول وبيطلّع أحداث resize كتير.
@@ -151,10 +164,13 @@ const WaveCanvas = () => {
       }
     };
 
+    // ─── الماوس: نستخدم offsetX/offsetY مباشرة ───
+    // دول في MouseEvent بنفسهم (relative to event target)، مابيطلعوش layout.
+    // ده بيوفّر getBoundingClientRect() على كل mousemove (اللي كانت بتسبب
+    // forced reflow 94ms في Lighthouse).
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mouseX = e.clientX - rect.left;
-      mouseY = e.clientY - rect.top;
+      mouseX = e.offsetX;
+      mouseY = e.offsetY;
       lastMoveTime = Date.now();
     };
 
@@ -163,14 +179,15 @@ const WaveCanvas = () => {
       mouseY = -1000;
     };
 
-    // دعم اللمس: نفس تأثير الماوس. مبنمسحش المكان عند رفع الإصبع،
-    // فبعد ثانيتين من آخر لمسة الجزيئات بتتشكل على شكل الاسم.
+    // ─── اللمس: TouchEvent مفيهاش offsetX ───
+    // فبنستخدم cachedRect بدل ما نادي getBoundingClientRect() على كل touchmove.
+    // الـ cache بيتحدّث بس على resize / scroll / visibilitychange — رخيصة جداً.
     const handleTouch = (e: TouchEvent) => {
       const t = e.touches[0];
       if (!t) return;
-      const rect = canvas.getBoundingClientRect();
-      mouseX = t.clientX - rect.left;
-      mouseY = t.clientY - rect.top;
+      if (!cachedRect) refreshRect();
+      mouseX = t.clientX - cachedRect.left;
+      mouseY = t.clientY - cachedRect.top;
       lastMoveTime = Date.now();
     };
 
@@ -180,7 +197,13 @@ const WaveCanvas = () => {
     canvas.addEventListener("touchmove", handleTouch, { passive: true });
 
     resize();
+    refreshRect();
     window.addEventListener("resize", onResize);
+    // نحدّث cachedRect على scroll و visibilitychange كمان، لأن أي حركة في layout
+    // (الـ navbar بيتعمل fixed، شريط المتصفح بيظهر/يختفي على الموبايل) بتغيّر
+    // موضع الـ canvas.
+    window.addEventListener("scroll", refreshRect, { passive: true });
+    document.addEventListener("visibilitychange", refreshRect);
 
     const visibilityObserver = new IntersectionObserver(
       ([entry]) => {
@@ -290,6 +313,8 @@ const WaveCanvas = () => {
       window.clearTimeout(resizeTimer);
       visibilityObserver.disconnect();
       window.removeEventListener("resize", onResize);
+      window.removeEventListener("scroll", refreshRect);
+      document.removeEventListener("visibilitychange", refreshRect);
       canvas.removeEventListener("mousemove", handleMouseMove);
       canvas.removeEventListener("mouseleave", handleMouseLeave);
       canvas.removeEventListener("touchstart", handleTouch);

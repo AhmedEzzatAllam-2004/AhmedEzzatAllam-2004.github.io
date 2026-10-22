@@ -1,10 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
 const SPLINE_SCENE_URL = "https://prod.spline.design/Slk6b8kz3LRlKiyk/scene.splinecode";
-// ملحوظة: جرّبنا build/spline-viewer.webgl.js (نسخة WebGL بس، أصغر 34%) بس تبيّن إن
-// تقسيم WebGL/WebGPU لنسختين منفصلتين ميزة مش موجودة في النسخة 1.11.9 المثبّتة هنا —
-// ظهرت في نسخ أحدث من المكتبة. الطلب كان بيفشل (404) بصمت ويسيب الخلفية الاحتياطية
-// (gradient) ظاهرة للأبد بدل المشهد. رجعنا للملف العادي المضمون وجوده في النسخة دي.
 const SPLINE_SCRIPT_URL = "https://unpkg.com/@splinetool/viewer@1.11.9/build/spline-viewer.js";
 
 let splineScriptPromise: Promise<void> | null = null;
@@ -29,23 +25,58 @@ const loadSplineScript = () => {
   return splineScriptPromise;
 };
 
+// نوع الـ Network Information API — مش في lib.dom.d.ts في أغلب نسخ TS، فبنعرفه يدوياً.
+// https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation
+interface NetworkInformation {
+  effectiveType?: "slow-2g" | "2g" | "3g" | "4g";
+  saveData?: boolean;
+  downlink?: number;
+  rtt?: number;
+  type?:
+    | "bluetooth"
+    | "cellular"
+    | "ethernet"
+    | "wifi"
+    | "wimax"
+    | "none"
+    | "other"
+    | "unknown";
+  addEventListener: typeof EventTarget.prototype.addEventListener;
+  removeEventListener: typeof EventTarget.prototype.removeEventListener;
+}
+
+interface NavigatorWithConnection extends Navigator {
+  connection?: NetworkInformation;
+  mozConnection?: NetworkInformation;
+  webkitConnection?: NetworkInformation;
+}
+
+const getConnection = (): NetworkInformation | null => {
+  if (typeof navigator === "undefined") return null;
+  const nav = navigator as NavigatorWithConnection;
+  return nav.connection ?? nav.mozConnection ?? nav.webkitConnection ?? null;
+};
+
 /**
- * خلفية الـ About التلاتية الأبعاد.
+ * خلفية الـ About — هجين: CSS متحركة على الموبايل، Spline 3D على الديسكتوب.
  *
- * ليه كانت تقيلة، خصوصاً على الموبايل:
- * 1) سكريبت spline-viewer (كذا ميجا) كان بيتحمّل في <head> على كل الأجهزة من غير شرط.
- * 2) المشهد نفسه كان بيتحمّل فور ما الصفحة تفتح، حتى لو المستخدم لسه في الـ Hero ومابعدش وصل لـ About.
- * 3) كان بيظهر حتى على الموبايل، واللي أصلاً مش هيستفاد بيه لأن اللمس مابيعملوش hover.
+ * السبب في التقسيم ده:
+ * - سكريبت spline-viewer (632 KiB) + ملف المشهد بياخدوا 2+ ثانية على شبكة 4G
+ *   بطيئة. لو حمّلناه على الموبايل، الـ LCP بيبقى 26 ثانية (اتقاس بـ Lighthouse).
+ * - على الديسكتوب، النت عادة أسرع والجهاز أقوى، فالمشهد بيتحمّل في وقت معقول
+ *   والفائدة البصرية بتستاهل.
+ * - على الموبايل، الـ CSS orbs المتحركة بتدي إحساس مماثل بدون أي سكريبت.
  *
- * الحل هنا:
- * - على الشاشات الصغيرة (أصغر من lg) بيتعرض gradient بسيط بدل الـ 3D خالص.
- * - على الشاشات الكبيرة، السكريبت والمشهد بيتحمّلوا بس أول ما القسم يقرّب من الشاشة
- *   (IntersectionObserver بـ rootMargin كبير شوية، فيبدأ التحميل قبل ما يوصله المستخدم فعلياً
- *   من غير ما يأخرّ تحميل باقي الصفحة).
- * - attribute اسمه `unloadable` على الـ <spline-viewer> نفسه (مش حاجة من عندنا، من مكتبة
- *   Spline): بيوقف المشهد ويسيب موارد الـ GPU أول ما يخرج برا الشاشة وقت السكرول لتحت،
- *   وبيرجع يحمّله تاني لو المستخدم رجع فوق. ده بيمنع المشهد إنه يفضل شغال في الخلفية
- *   وأنت شايف Skills أو Experience أو أي قسم تاني.
+ * شروط إضافية لتخطّي Spline حتى على الديسكتوب:
+ * - prefers-reduced-motion: reduce
+ * - navigator.connection.saveData === true
+ * - effectiveType هو 'slow-2g' أو '2g'
+ *
+ * تحسينات Spline على الديسكتوب (لو اتحمّل):
+ * - IntersectionObserver بـ rootMargin 400px (بدل 600px) — تأخير بسيط لتحميل المشهد.
+ * - `unloadable` بيقفل الـ GPU أول ما القسم يخرج برا الشاشة وقت السكرول.
+ * - Pointer forwarding بس على الأجهزة اللي المؤشر فيها دقيق (ماوس)، ومخفّف
+ *   بـ requestAnimationFrame (dispatch واحد بس لكل frame).
  */
 export default function SplineAboutBackground({
   containerRef,
@@ -53,21 +84,68 @@ export default function SplineAboutBackground({
   containerRef: React.RefObject<HTMLElement>;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const [isLargeScreen, setIsLargeScreen] = useState(false);
-  const [shouldLoad, setShouldLoad] = useState(false);
-  const [loaded, setLoaded] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [networkBlocked, setNetworkBlocked] = useState(false);
+  const [pointerFine, setPointerFine] = useState(false);
 
-  // غيّر 1024 لـ 768 لو عاوز المشهد يظهر على التابلت كمان.
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const [scriptReady, setScriptReady] = useState(false);
+  const [sceneReady, setSceneReady] = useState(false);
+
+  // الـ Spline بيتحمّل بس لو: ديسكتوب + motion مسموح + شبكة سريعة.
+  const canRenderSpline = isDesktop && !prefersReducedMotion && !networkBlocked;
+  // الـ CSS orbs بتشتغل بس لو motion مسموح (مش reduced-motion). على الموبايل ده
+  // الخلفية الأساسية، على الديسكتوب ده الاحتياطي لحد ما Spline يحمّل.
+  const canAnimateCSS = !prefersReducedMotion;
+
+  // نتتبع الـ viewport size + reduced-motion + نوع النت. لو أي واحد فيهم اتغيّر،
+  // نعيد التقييم (مثلاً المستخدم كبّر المتصفح من موبايل لـ ديسكتوب).
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const update = () => setIsLargeScreen(mq.matches);
+    const sizeMq = window.matchMedia("(min-width: 1024px)");
+    const motionMq = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const recheck = () => {
+      setIsDesktop(sizeMq.matches);
+      setPrefersReducedMotion(motionMq.matches);
+      const conn = getConnection();
+      if (!conn) {
+        setNetworkBlocked(false);
+        return;
+      }
+      setNetworkBlocked(
+        conn.saveData === true ||
+          conn.effectiveType === "slow-2g" ||
+          conn.effectiveType === "2g"
+      );
+    };
+
+    recheck();
+    sizeMq.addEventListener("change", recheck);
+    motionMq.addEventListener("change", recheck);
+    const conn = getConnection();
+    if (conn) conn.addEventListener("change", recheck);
+    return () => {
+      sizeMq.removeEventListener("change", recheck);
+      motionMq.removeEventListener("change", recheck);
+      if (conn) conn.removeEventListener("change", recheck);
+    };
+  }, []);
+
+  // نكشف نوع الـ pointer الأساسي. (pointer: fine) = ماوس — forwarding بيتفعّل بس.
+  // (pointer: coarse) = لمس — مفيش forwarding (مفيش hover أصلاً على اللمس).
+  useEffect(() => {
+    const mq = window.matchMedia("(pointer: fine)");
+    const update = () => setPointerFine(mq.matches);
     update();
     mq.addEventListener("change", update);
     return () => mq.removeEventListener("change", update);
   }, []);
 
+  // Lazy-load Spline: بس أول ما القسم يدخل الشاشة (ودي عمليات الـ IntersectionObserver
+  // تحدث بس بعد ما الصفحة تخلّص تحميل أساسي، فمش بتعطّل LCP).
   useEffect(() => {
-    if (!isLargeScreen) return;
+    if (!canRenderSpline) return;
     const section = containerRef.current;
     if (!section) return;
 
@@ -78,31 +156,40 @@ export default function SplineAboutBackground({
           obs.disconnect();
         }
       },
-      { rootMargin: "600px 0px" }
+      // 400px بدل 600px — تأخير بسيط عشان ميبدأش التحميل بدري ويأخّر LCP.
+      { rootMargin: "400px 0px" }
     );
     obs.observe(section);
     return () => obs.disconnect();
-  }, [isLargeScreen, containerRef]);
+  }, [canRenderSpline, containerRef]);
 
   useEffect(() => {
     if (!shouldLoad) return;
     let cancelled = false;
     loadSplineScript()
       .then(() => {
-        if (!cancelled) setLoaded(true);
+        if (!cancelled) setScriptReady(true);
       })
-      .catch(() => {
-        // فشل تحميل السكريبت (مثلاً مفيش نت): بيفضل الـ gradient الاحتياطي ظاهر، مفيش كراش.
+      .catch((err) => {
+        console.warn("SplineAboutBackground: failed to load spline-viewer script", err);
       });
     return () => {
       cancelled = true;
     };
   }, [shouldLoad]);
 
-  // The 3D scene never captures pointer input (so scrolling always works);
-  // we forward mouse movement to its canvas manually instead.
   useEffect(() => {
-    if (!loaded) return;
+    if (!scriptReady) return;
+    const viewer = wrapRef.current?.querySelector("spline-viewer");
+    if (!viewer) return;
+    const onLoadComplete = () => setSceneReady(true);
+    viewer.addEventListener("load-complete", onLoadComplete);
+    return () => viewer.removeEventListener("load-complete", onLoadComplete);
+  }, [scriptReady]);
+
+  // Pointer forwarding — بس على ماوس، ومخفّف بـ rAF. على اللمس بيتكفّى تماماً.
+  useEffect(() => {
+    if (!sceneReady || !pointerFine) return;
     const section = containerRef.current;
     if (!section) return;
 
@@ -115,7 +202,14 @@ export default function SplineAboutBackground({
         null) as HTMLCanvasElement | null;
     };
 
-    const forward = (e: PointerEvent) => {
+    let lastEvent: PointerEvent | null = null;
+    let rafId: number | null = null;
+
+    const flush = () => {
+      rafId = null;
+      const e = lastEvent;
+      if (!e) return;
+      lastEvent = null;
       const canvas = getCanvas();
       if (!canvas) return;
       for (const type of ["pointermove", "mousemove"]) {
@@ -131,32 +225,121 @@ export default function SplineAboutBackground({
       }
     };
 
+    const forward = (e: PointerEvent) => {
+      lastEvent = e;
+      if (rafId === null) {
+        rafId = requestAnimationFrame(flush);
+      }
+    };
+
     section.addEventListener("pointermove", forward);
-    return () => section.removeEventListener("pointermove", forward);
-  }, [loaded, containerRef]);
+    return () => {
+      section.removeEventListener("pointermove", forward);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+      rafId = null;
+      lastEvent = null;
+    };
+  }, [sceneReady, pointerFine, containerRef]);
 
   return (
     <div className="absolute inset-0 z-0 pointer-events-none" ref={wrapRef}>
-      {loaded ? (
+      {/* الخلفية الاحتياطية CSS — موجودة دايماً:
+          - على الموبايل: دي الخلفية الوحيدة (مفيش Spline أصلاً)
+          - على الديسكتوب: بتظهر لحد ما Spline يخلّص تحميل، وبعدها بتختفي بـ opacity
+          - لو prefers-reduced-motion: التدرّج ثابت من غير orbs
+          - content-visibility:auto عشان المتصفح يطّاش رندرها برا الشاشة */}
+      <div
+        className="absolute inset-0 h-full w-full"
+        style={{
+          contentVisibility: "auto",
+          containIntrinsicSize: "100% 100%",
+          background:
+            "radial-gradient(ellipse at 50% 0%, rgba(220,38,38,0.18), transparent 60%), radial-gradient(ellipse at 80% 100%, rgba(255,255,255,0.06), transparent 55%)",
+          opacity: sceneReady ? 0 : 1,
+          transition: "opacity 500ms ease",
+        }}
+      >
+        {/* CSS orbs متحركة — بس لو motion مسموح */}
+        {canAnimateCSS && (
+          <>
+            <div
+              className="absolute rounded-full"
+              style={{
+                top: "10%",
+                left: "5%",
+                width: "min(40vw, 380px)",
+                height: "min(40vw, 380px)",
+                background:
+                  "radial-gradient(circle, rgba(220,38,38,0.32), transparent 70%)",
+                filter: "blur(40px)",
+                willChange: "transform",
+                animation: "spline-about-float-a 18s ease-in-out infinite",
+              }}
+            />
+            <div
+              className="absolute rounded-full"
+              style={{
+                top: "40%",
+                right: "8%",
+                width: "min(35vw, 320px)",
+                height: "min(35vw, 320px)",
+                background:
+                  "radial-gradient(circle, rgba(255,255,255,0.12), transparent 70%)",
+                filter: "blur(50px)",
+                willChange: "transform",
+                animation: "spline-about-float-b 22s ease-in-out infinite",
+              }}
+            />
+            <div
+              className="absolute rounded-full"
+              style={{
+                bottom: "5%",
+                left: "30%",
+                width: "min(30vw, 280px)",
+                height: "min(30vw, 280px)",
+                background:
+                  "radial-gradient(circle, rgba(220,38,38,0.22), transparent 70%)",
+                filter: "blur(45px)",
+                willChange: "transform",
+                animation: "spline-about-float-c 26s ease-in-out infinite",
+              }}
+            />
+          </>
+        )}
+      </div>
+
+      {/* Spline 3D — بس على الديسكتوب لما scriptReady يبقى true */}
+      {scriptReady && (
         // @ts-expect-error spline-viewer web component
-        // unloadable: الـ attribute ده من مكتبة Spline نفسها — بيخلّي المشهد يسيب موارد
-        // الـ GPU بمجرد ما يخرج برا الشاشة (لما تنزل لـ Skills/Experience/...)، وبيرجع
-        // يحمّله تاني تلقائياً لو المستخدم رجع لفوق. ده اللي كان بيخلي الموقع يفضل تقيل
-        // حتى بعد ما تعدّي قسم About.
+        // unloadable: بيخلّي المشهد يسيب موارد الـ GPU بمجرد ما يخرج برا الشاشة，
+        // وبيرجع يحمّله تاني تلقائياً لو المستخدم رجع لفوق.
         <spline-viewer
           url={SPLINE_SCENE_URL}
           unloadable="true"
-          style={{ width: "100%", height: "100%", display: "block" }}
-        />
-      ) : (
-        <div
-          className="h-full w-full"
           style={{
-            background:
-              "radial-gradient(ellipse at 50% 0%, rgba(220,38,38,0.18), transparent 60%), radial-gradient(ellipse at 80% 100%, rgba(255,255,255,0.06), transparent 55%)",
+            width: "100%",
+            height: "100%",
+            display: "block",
+            opacity: sceneReady ? 1 : 0,
+            transition: "opacity 500ms ease",
           }}
         />
       )}
+
+      <style>{`
+        @keyframes spline-about-float-a {
+          0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+          50%      { transform: translate3d(40px, -30px, 0) scale(1.08); }
+        }
+        @keyframes spline-about-float-b {
+          0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+          50%      { transform: translate3d(-50px, 40px, 0) scale(1.12); }
+        }
+        @keyframes spline-about-float-c {
+          0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+          50%      { transform: translate3d(30px, -40px, 0) scale(1.06); }
+        }
+      `}</style>
     </div>
   );
 }

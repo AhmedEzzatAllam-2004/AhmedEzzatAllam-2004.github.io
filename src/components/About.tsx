@@ -1,139 +1,78 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Code, Brain, BookOpen, Trophy } from "lucide-react";
+"use client";
+
+import { useRef } from "react";
+import { MessageCircle } from "lucide-react";
+import Reveal from "@/components/Reveal";
+import SplineAboutBackground from "@/components/SplineAboutBackground";
 
 const About = () => {
-  const highlights = [
-    {
-      icon: Code,
-      title: "Programming Skills",
-      description: "Proficient in multiple programming languages and frameworks"
-    },
-    {
-      icon: Brain,
-      title: "AI & Machine Learning",
-      description: "Experience with ML algorithms and deep learning frameworks"
-    },
-    {
-      icon: BookOpen,
-      title: "Continuous Learning",
-      description: "Always exploring new technologies and staying updated with trends"
-    },
-    {
-      icon: Trophy,
-      title: "Academic Excellence",
-      description: "Strong academic performance with focus on practical applications"
-    }
-  ];
-
-  const skills = [
-    // Foundations
-    "Calculus", "Linear Algebra", "Probability & Statistics", "Discrete Mathematics",
-    "Digital Logic & Computer Architecture", "Technical English", "Sustainability & Ethics",
-    
-    // Core Computing & AI
-    "Programming (Python, C++, OOP)", "Data Structures & Algorithms", "Database Systems (SQL)",
-    "Software Engineering Principles", "Computer Networks & Security", "Artificial Intelligence",
-    "Project Management & Team Collaboration",
-    
-    // Advanced Data Science & AI
-    "Machine Learning", "Deep Learning (CNNs, RNNs, Transformers)", "Natural Language Processing",
-    "Computer Vision & Speech Recognition", "Data Mining & Big Data Analytics", "ETL & Data Governance",
-    "Explainable AI (XAI)", "MLOps", "Nature-Inspired Computation", "Cloud Computing & GIS",
-    
-    // Professional Experience
-    "Internship Experience", "Senior Project Development"
-  ];
+  const aboutRef = useRef<HTMLElement>(null);
 
   return (
-    <section id="about" className="py-20 bg-gradient-to-br from-muted/30 to-background">
-      <div className="container mx-auto px-6">
-        <div className="max-w-6xl mx-auto">
-          {/* Section Header */}
-          <div className="mb-20 reveal">
-            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">✻ About</p>
-            <h2 className="font-display text-6xl md:text-8xl text-foreground mb-8">
-              A student <span className="italic-serif">obsessed</span><br />with building.
+    <section
+      ref={aboutRef}
+      id="about"
+      className="relative overflow-hidden border-t border-white/10 px-5 sm:px-6 md:px-10 lg:px-14 md:min-h-screen flex flex-col justify-center py-16 md:py-32"
+    >
+      {/* Spline 3D background — السكريبت والمشهد بيتحمّلوا بس على الشاشات الكبيرة، وبس لما القسم يقرّب من الشاشة */}
+      <SplineAboutBackground containerRef={aboutRef} />
+      <div className="absolute inset-0 z-[1] bg-black/70 pointer-events-none" />
+
+      <div className="relative z-10 w-full">
+        <Reveal>
+          <p className="font-pixel text-xs tracking-widest text-white/50 uppercase mb-8">* About</p>
+        </Reveal>
+        <div className="grid lg:grid-cols-2 gap-10">
+          <Reveal delay={80}>
+            <h2
+              className="text-3xl sm:text-4xl md:text-5xl uppercase tracking-wide"
+              style={{ lineHeight: 0.85 }}
+            >
+              A STUDENT
+              <br />
+              <span className="font-pixel text-[1.2em] leading-none">OBSESSED</span>
+              <br />
+              WITH BUILDING
             </h2>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
-              A dedicated and ambitious student with a strong foundation in programming, data science, and AI.
-              I enjoy building projects, learning new technologies, and collaborating with others to create impactful solutions.
-            </p>
-          </div>
-
-
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            {/* Left Column - Story */}
-            <div className="space-y-6 reveal-left">
-
-              <Card className="bg-card/50 backdrop-blur-sm border-border/50 shadow-card">
-                <CardContent className="p-8">
-                  <h3 className="text-2xl font-semibold text-foreground mb-4">My Journey</h3>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    As a Computer Science student specializing in Data Science and AI, I'm passionate 
-                    about exploring the intersection of technology and real-world problem solving. 
-                    My academic journey has equipped me with strong programming skills and analytical thinking.
-                  </p>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    I believe in learning by doing, which is why I actively work on projects that 
-                    challenge me to apply theoretical knowledge to practical solutions. I'm always 
-                    eager to collaborate and learn from others in the tech community.
-                  </p>
-                  <p className="text-muted-foreground leading-relaxed">
-                    When I'm not coding or studying, you can find me exploring new AI research papers, 
-                    participating in hackathons, or contributing to open-source projects.
-                  </p>
-                </CardContent>
-              </Card>
-
-              {/* Skills */}
-              <Card className="bg-card/50 backdrop-blur-sm border-border/50 shadow-card">
-                <CardContent className="p-8">
-                  <h3 className="text-2xl font-semibold text-foreground mb-6">Core Skills</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {skills.map((skill, index) => (
-                      <Badge
-                        key={index}
-                        variant="secondary"
-                        className="px-3 py-1 text-sm font-medium bg-accent text-accent-foreground hover:bg-primary hover:text-primary-foreground transition-colors duration-300"
-                      >
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Right Column - Highlights */}
-            <div className="space-y-6 reveal-right">
-              <h3 className="text-2xl font-semibold text-foreground mb-6">Key Highlights</h3>
-              {highlights.map((highlight, index) => (
-                <div key={index} className="reveal" data-delay={index * 120}>
-                <Card
-                  className="bg-card/50 backdrop-blur-sm border-border/50 shadow-card hover:shadow-professional transition-all duration-300 hover:scale-105"
-                >
-
-                  <CardContent className="p-6">
-                    <div className="flex items-start space-x-4">
-                      <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                        <highlight.icon className="w-6 h-6 text-primary" />
-                      </div>
-                      <div>
-                        <h4 className="text-lg font-semibold text-foreground mb-2">
-                          {highlight.title}
-                        </h4>
-                        <p className="text-muted-foreground">
-                          {highlight.description}
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+          </Reveal>
+          <div className="space-y-6 text-sm md:text-base text-white/70 leading-relaxed max-w-xl">
+            <Reveal delay={160}>
+              <p>
+                A dedicated and ambitious student with a strong foundation in programming, data science
+                and AI. I enjoy building projects, learning new technologies and collaborating with
+                others to create impactful solutions.
+              </p>
+            </Reveal>
+            <Reveal delay={240}>
+              <p>
+                I believe in learning by doing — most of what I know came from shipping projects that
+                forced me to apply theory to real problems, from automation scripts to full simulation
+                engines.
+              </p>
+            </Reveal>
+            <Reveal delay={320}>
+              <div className="grid grid-cols-2 gap-6 pt-4 border-t border-white/10">
+                <div>
+                  <p className="font-pixel text-2xl text-white">2024</p>
+                  <p className="text-xs text-white/50 uppercase tracking-widest mt-1">Started CS/AI</p>
                 </div>
-              ))}
-
-            </div>
+                <div>
+                  <p className="font-pixel text-2xl text-white">GIZA</p>
+                  <p className="text-xs text-white/50 uppercase tracking-widest mt-1">Egypt</p>
+                </div>
+              </div>
+            </Reveal>
+            <Reveal delay={400}>
+              <a
+                href="https://wa.me/201140674371"
+                target="_blank"
+                rel="noreferrer"
+                className="pointer-events-auto inline-flex items-center gap-3 border border-white/30 px-6 py-3 backdrop-blur-sm bg-white/5 hover:bg-white/10 transition-colors w-fit"
+              >
+                <MessageCircle size={14} />
+                <span className="text-sm tracking-wider">LET'S CHAT</span>
+              </a>
+            </Reveal>
           </div>
         </div>
       </div>

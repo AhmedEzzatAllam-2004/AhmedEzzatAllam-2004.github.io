@@ -25,10 +25,14 @@
       الأولوية، لكن المتصفح مابيستناش الـ CSS يخلّص قبل ما يرسم أول حاجة — وفيه fallback
       جوه <noscript> لو الـ JS متقفل. وكمان دمجت طلب Inter اللي كان مكرر في index.css
       مع Instrument Serif في طلب واحد بدل اتنين.
+
+      تحسين إضافي: الـ preconnect بـ crossorigin ضروري لـ fonts.gstatic.com و
+      db.onlinewebfonts.com — بدون crossorigin المتصفح بيعمل request عادي بدون
+      pre-CORS handshake، وده بيأخّر تحميل الـ fonts بمعدل 100-300ms.
     -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://db.onlinewebfonts.com" />
+    <link rel="preconnect" href="https://db.onlinewebfonts.com" crossorigin />
 
     <link
       rel="preload"
