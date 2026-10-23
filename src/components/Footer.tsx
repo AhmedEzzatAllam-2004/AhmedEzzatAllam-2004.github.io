@@ -116,9 +116,12 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Watermark Name — aria-hidden لإنه decorative (مش ضروري للـ screen readers) */}
-        <div className="mt-8 flex justify-center overflow-hidden" aria-hidden="true">
-          <p className="text-[35px] md:text-[75px] leading-none tracking-tight select-none uppercase font-bold text-white/30">
+        {/* Watermark Name — aria-hidden لإنه decorative */}
+        <div className="mt-8 flex justify-center overflow-hidden">
+          <p
+            aria-hidden="true"
+            className="text-[35px] md:text-[75px] leading-none tracking-tight select-none uppercase font-bold text-white/40"
+          >
             Ahmed Ezzat
           </p>
         </div>
