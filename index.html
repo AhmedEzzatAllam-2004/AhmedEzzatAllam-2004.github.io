@@ -93,28 +93,39 @@
     </script>
 
     <!--
-      Visitor Tracking — Google Analytics 4.
-      Measurement ID: G-6EXGVLDPZN (Ahmed Ezzat Portfolio property)
-    -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6EXGVLDPZN"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-6EXGVLDPZN');
-    </script>
+      Visitor Tracking — Google Analytics 4 + Microsoft Clarity.
+      بنأخر تحميلهم لـ بعد ما الصفحة تـ tـ tـ render (lazy load) عشان
+      مـ يـ tـ tـ block الـ FCP/LCP/TBT. بيـ tـ tـ تـ tـ tـ tـ tـ tـ tـ tـ tـ tـ تحمّل
+      في idle time بـ requestIdleCallback (لو المتصفح بـ يـ tـ tـ تـ tـ tـ supportه)
+      أو بعد 1.5 ثانية من window.load.
 
-    <!--
-      Visitor Tracking — Microsoft Clarity.
-      Project ID: z2ffvl44tf
-      بـ يـ tـ tracks heatmaps + session recordings (فيديو لكل زايـر)
+      GA4 Measurement ID: G-6EXGVLDPZN
+      Clarity Project ID: z2ffvl44tf
     -->
-    <script type="text/javascript">
-      (function(c,l,a,r,i,t,y){
+    <script>
+      function loadAnalytics() {
+        // GA4
+        var g = document.createElement('script');
+        g.async = true;
+        g.src = 'https://www.googletagmanager.com/gtag/js?id=G-6EXGVLDPZN';
+        document.head.appendChild(g);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-6EXGVLDPZN');
+        // Microsoft Clarity
+        (function(c,l,a,r,i,t,y){
           c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
           t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
           y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-      })(window, document, "clarity", "script", "z2ffvl44tf");
+        })(window, document, "clarity", "script", "z2ffvl44tf");
+      }
+      // بـ نـ tـ tـ tـ delay الـ loading لـ idle time — مش بـ يـ tـ block الـ render
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(loadAnalytics, { timeout: 3000 });
+      } else {
+        window.addEventListener('load', function() { setTimeout(loadAnalytics, 1500); });
+      }
     </script>
 
     <!--
