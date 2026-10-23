@@ -14,7 +14,6 @@ const Hero = () => {
         loop
         playsInline
         preload="auto"
-        poster="/photo/hero-poster.jpg"
         className="absolute inset-0 h-full w-full object-cover lg:scale-[1.2]"
         src={heroVideo}
       />

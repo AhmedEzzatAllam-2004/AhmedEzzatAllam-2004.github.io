@@ -118,7 +118,7 @@ const Footer = () => {
 
         {/* Watermark Name — aria-hidden لإنه decorative (مش ضروري للـ screen readers) */}
         <div className="mt-8 flex justify-center overflow-hidden" aria-hidden="true">
-          <p className="text-[35px] md:text-[75px] leading-none tracking-tight select-none uppercase font-bold text-white/20">
+          <p className="text-[35px] md:text-[75px] leading-none tracking-tight select-none uppercase font-bold text-white/30">
             Ahmed Ezzat
           </p>
         </div>

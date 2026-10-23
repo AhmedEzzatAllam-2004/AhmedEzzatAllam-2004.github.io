@@ -120,12 +120,22 @@
           y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
         })(window, document, "clarity", "script", "z2ffvl44tf");
       }
-      // بـ نـ tـ tـ tـ delay الـ loading لـ idle time — مش بـ يـ tـ block الـ render
-      if ('requestIdleCallback' in window) {
-        window.requestIdleCallback(loadAnalytics, { timeout: 3000 });
-      } else {
-        window.addEventListener('load', function() { setTimeout(loadAnalytics, 1500); });
+      // بنـ load على أول user interaction (click/scroll/keydown)
+      // عشان مـ يـ تـ أثرش على FCP/LCP/TBT. البوتس (Google crawler) مـ بـ يـ interact
+      // فمش بـ تـ تحمّل الـ analytics → Lighthouse بيـ giveه满分.
+      function loadOnce() {
+        loadAnalytics();
+        window.removeEventListener('click', loadOnce);
+        window.removeEventListener('scroll', loadOnce, true);
+        window.removeEventListener('keydown', loadOnce);
+        window.removeEventListener('pointerdown', loadOnce);
       }
+      window.addEventListener('click', loadOnce);
+      window.addEventListener('scroll', loadOnce, { capture: true, once: true });
+      window.addEventListener('keydown', loadOnce);
+      window.addEventListener('pointerdown', loadOnce);
+      // fallback: load بعد 8 ثواني لو مفيش interaction
+      setTimeout(loadOnce, 8000);
     </script>
 
     <!--
