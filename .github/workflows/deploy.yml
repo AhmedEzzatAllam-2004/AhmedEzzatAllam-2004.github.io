@@ -1,8 +1,10 @@
 ﻿name: Deploy to GitHub Pages
 
 on:
+  # بـ يـ trigger كل ما تـ push على main
   push:
     branches: [main]
+  # بـ يـ تـيـسر manual deploy من GitHub UI
   workflow_dispatch:
 
 permissions:
