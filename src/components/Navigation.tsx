@@ -13,38 +13,23 @@ const navLinks = [
   { label: "TALK", href: "#contact" },
 ];
 
-// اللوجو: بنستخدم <img> مباشرة بـ /photo/me.png — الصورة الموجودة فعلاً.
-// ده بيشتغل فوراً بدون ما تحتاج تحوّل أي صور.
-//
-// لو حابب تفعّل AVIF/WebP (لتقليل الحجم من 51 KiB لـ ~2 KiB):
-//   1) شغّل سكريبت convert-images.py (بيعمل me-96.avif + me-96.webp)
-//   2) استبدل الـ <img> بالكود ده:
-//
-//   <picture>
-//     <source srcSet="/photo/me-96.avif" type="image/avif" />
-//     <source srcSet="/photo/me-96.webp" type="image/webp" />
-//     <img src="/photo/me.png" alt="AE Logo" width={48} height={48} ... />
-//   </picture>
-//
-// الـ optimizations اللي حاطّها دلوقتي بتشتغل على كل المتصفحات:
-// - loading="eager": اللوجو فوق، بنحمّله فوراً (مش lazy).
-// - decoding="async": الـ decode بيتعمل برا الـ main thread.
-//
-// ملاحظة عن fetchPriority="high": شلناه عمداً. React 18.0–18.2 مش بيتعرف
-// على الـ camelCase "fetchPriority" وبيطلّع warning في الـ console.
-// React 18.3+ بيتعرف عليه، بس الأمان أحسن نشيله (اللوجو مش الـ LCP أصلاً).
-// لو مستخدم React 19+، تقدر ترجّعه: fetchPriority="high".
+// اللوجو: <picture> بـ AVIF + WebP + PNG fallback.
+// AVIF أخف بـ 50% من WebP (~2 KiB بدل 51 KiB).
 const Logo = () => (
-  <img
-    src="/photo/me.png"
-    alt="AE Logo"
-    width={48}
-    height={48}
-    loading="eager"
-    decoding="async"
-    className="w-10 h-10 sm:w-12 sm:h-12 object-contain transition-transform duration-300 hover:scale-105"
-    style={{ filter: "contrast(1.5) brightness(0.7)", mixBlendMode: "screen" }}
-  />
+  <picture>
+    <source srcSet="/photo/me-96.avif" type="image/avif" />
+    <source srcSet="/photo/me-96.webp" type="image/webp" />
+    <img
+      src="/photo/me-96.png"
+      alt="AE Logo"
+      width={48}
+      height={48}
+      loading="eager"
+      decoding="async"
+      className="w-10 h-10 sm:w-12 sm:h-12 object-contain transition-transform duration-300 hover:scale-105"
+      style={{ filter: "contrast(1.5) brightness(0.7)", mixBlendMode: "screen" }}
+    />
+  </picture>
 );
 
 // بيحتوي على الـ <nav> نفسه وقايمة الموبايل سوا، وبيدير menuOpen جوّاه بنفسه —

@@ -5,6 +5,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import CustomCursor from "@/components/CustomCursor";
+import AchievementSystem from "@/components/AchievementSystem";
+import TerminalNavigation from "@/components/TerminalNavigation";
 
 const queryClient = new QueryClient();
 
@@ -13,12 +16,25 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+
+      {/* Cursor + Trail — شغّال على الـ desktop بس */}
+      <CustomCursor />
+
+      {/* Achievement tracker — بيتابع أفعال الزائر */}
+      <AchievementSystem />
+
+      {/* Terminal Navigation — افتحها بـ / */}
+      <TerminalNavigation />
+
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        {/* <main> landmark عشان Accessibility (Lighthouse هيكتشفه) */}
+        <main>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

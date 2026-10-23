@@ -5,30 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="icon" type="image/png" href="/photo/mee.png" />
+    <link rel="canonical" href="https://ahmedezzatallam-2004.github.io/" />
 
-    <title>Ahmed Ezzat | Portfolio</title>
+    <!-- Primary SEO -->
+    <title>Ahmed Ezzat Allam | Data Science & AI Portfolio</title>
+    <meta name="description" content="Ahmed Ezzat Allam — Computer Science & AI Undergraduate at Zewail City. Portfolio of projects in Machine Learning, Deep Learning, NLP, Python automation, and C++ system design." />
+    <meta name="author" content="Ahmed Ezzat Allam" />
+    <meta name="keywords" content="Ahmed Ezzat, Ahmed Ezzat Allam, Ahmed Ezzat portfolio, Zewail City, Data Science, AI, Machine Learning, Deep Learning, NLP, Python automation, C++ system design, Computer Science student Egypt" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
 
-    <meta name="description" content="Ahmed Ezzat - Computer Science Student & Data Scientist Portfolio" />
-    <meta name="author" content="Ahmed Ezzat" />
-
-    <meta property="og:title" content="Ahmed Ezzat Portfolio" />
-    <meta property="og:description" content="Computer Science Student | Data Science & AI" />
+    <!-- Open Graph (Facebook, LinkedIn, Discord previews) -->
+    <meta property="og:title" content="Ahmed Ezzat Allam | Data Science & AI Portfolio" />
+    <meta property="og:description" content="Computer Science & AI Undergraduate at Zewail City. ML, DL, NLP, Python automation, C++ systems." />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ahmedezzatallam-2004.github.io/" />
     <meta property="og:image" content="https://ahmedezzatallam-2004.github.io/photo/me.png" />
+    <meta property="og:site_name" content="Ahmed Ezzat Allam" />
+    <meta property="og:locale" content="en_US" />
 
+    <!-- Twitter cards -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Ahmed Ezzat Allam | Data Science & AI Portfolio" />
+    <meta name="twitter:description" content="Computer Science & AI Undergraduate at Zewail City." />
+    <meta name="twitter:image" content="https://ahmedezzatallam-2004.github.io/photo/me.png" />
 
     <!--
-      الخطوط: كانت بتتحمّل بـ <link rel="stylesheet"> عادي، وده بيوقف رسم الصفحة لحد ما
-      الطلب يرجع (ده اللي كان مسبب الـ render-blocking وتأخير ظهور الـ H1 في الـ Hero).
-      دلوقتي بتتحمّل بطريقة الـ "preload + onload" القياسية: التحميل بيبدأ فوراً وبنفس
-      الأولوية، لكن المتصفح مابيستناش الـ CSS يخلّص قبل ما يرسم أول حاجة — وفيه fallback
-      جوه <noscript> لو الـ JS متقفل. وكمان دمجت طلب Inter اللي كان مكرر في index.css
-      مع Instrument Serif في طلب واحد بدل اتنين.
+      JSON-LD: structured data بـ يخلي Google تعرف إن ده Person + WebSite.
+      ده بـ يـ خلي الـ portfolio يظهر في search results لما حد يبحث "Ahmed Ezzat".
+      كمان بـ يساعد Google يفهم العلاقة بين الأسم/الـ bio/الـ links.
+    -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ahmed Ezzat Allam",
+      "givenName": "Ahmed Ezzat",
+      "familyName": "Allam",
+      "jobTitle": "Computer Science & AI Student",
+      "url": "https://ahmedezzatallam-2004.github.io/",
+      "image": "https://ahmedezzatallam-2004.github.io/photo/me.png",
+      "email": "mailto:s-ahmed.allam@zewailcity.edu.eg",
+      "description": "Computer Science & AI Undergraduate at Zewail City of Science and Technology. Building intelligent systems, automation and data-driven products.",
+      "affiliation": {
+        "@type": "CollegeOrUniversity",
+        "name": "Zewail City of Science and Technology"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "6th of October City, Giza",
+        "addressCountry": "Egypt"
+      },
+      "knowsAbout": [
+        "Machine Learning",
+        "Deep Learning",
+        "Natural Language Processing",
+        "Python",
+        "C++",
+        "Data Science",
+        "Artificial Intelligence",
+        "Web Scraping",
+        "Automation"
+      ],
+      "sameAs": [
+        "https://github.com/ahmedezzatallam-2004",
+        "https://linkedin.com/in/ahmedezzatallam",
+        "https://wa.me/201140674371"
+      ]
+    }
+    </script>
 
-      تحسين إضافي: الـ preconnect بـ crossorigin ضروري لـ fonts.gstatic.com و
-      db.onlinewebfonts.com — بدون crossorigin المتصفح بيعمل request عادي بدون
-      pre-CORS handshake، وده بيأخّر تحميل الـ fonts بمعدل 100-300ms.
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://ahmedezzatallam-2004.github.io/",
+      "name": "Ahmed Ezzat Allam — Portfolio",
+      "description": "Portfolio of Ahmed Ezzat Allam: Data Science & AI projects.",
+      "author": {
+        "@type": "Person",
+        "name": "Ahmed Ezzat Allam"
+      }
+    }
+    </script>
+
+    <!--
+      Visitor Tracking — Google Analytics 4.
+      🔴 لازم تعمل الخطوات دي الأول:
+      1. روح https://analytics.google.com
+      2. اعمل Account جديد + Property جديدة (Web)
+      3. حط الـ URL: https://ahmedezzatallam-2004.github.io
+      4. هتلاقي Measurement ID على شكل G-XXXXXXXXXX — انسخه
+      5. استبدل G-XXXXXXXXXX تحت بـ ID بتاعك
+    -->
+    <!--
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    -->
+
+    <!--
+      Fonts: بـ display=optional عشان نمنع CLS (font swap layout shift).
     -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -37,11 +118,11 @@
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=optional"
     />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=optional"
       media="print"
       onload="this.media='all'"
     />
@@ -49,11 +130,11 @@
     <link
       rel="preload"
       as="style"
-      href="https://db.onlinewebfonts.com/c/d08bafd725a4cfc309efb5a88e0b63a5?family=basis33"
+      href="https://db.onlinewebfonts.com/c/d08bafd725a4cfc309efb5a88e0b63a5?family=basis33&display=optional"
     />
     <link
       rel="stylesheet"
-      href="https://db.onlinewebfonts.com/c/d08bafd725a4cfc309efb5a88e0b63a5?family=basis33"
+      href="https://db.onlinewebfonts.com/c/d08bafd725a4cfc309efb5a88e0b63a5?family=basis33&display=optional"
       media="print"
       onload="this.media='all'"
     />
@@ -61,19 +142,13 @@
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=optional"
       />
       <link
         rel="stylesheet"
-        href="https://db.onlinewebfonts.com/c/d08bafd725a4cfc309efb5a88e0b63a5?family=basis33"
+        href="https://db.onlinewebfonts.com/c/d08bafd725a4cfc309efb5a88e0b63a5?family=basis33&display=optional"
       />
     </noscript>
-
-    <!--
-      سكريبت spline-viewer اتشال من هنا. كان بينزل على كل الأجهزة (موبايل، تابلت، ديسكتوب)
-      من غير فرق، وده كان السبب الرئيسي في تقل صفحة الـ About. دلوقتي بيتحمّل ديناميكياً
-      من جوه About.tsx، وبس على الشاشات اللي فعلاً هتعرض المشهد الـ 3D.
-    -->
   </head>
 
   <body>

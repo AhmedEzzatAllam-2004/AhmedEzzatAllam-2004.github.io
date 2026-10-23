@@ -57,7 +57,9 @@ const Hero = () => {
             </p>
           </div>
 
-          <div className="text-right lg:text-left">
+          {/* FOCUS section: مخفي على الموبايل لإنه بياخد مساحة كبيرة ويقع على
+              الوجه في الفيديو. بيرجع يظهر من md وفوق. */}
+          <div className="hidden md:block text-right lg:text-left lg:col-span-1">
             <p className="text-base tracking-widest text-white/50 uppercase mb-3 font-pixel">
               Focus
             </p>
@@ -77,15 +79,12 @@ const Hero = () => {
         {/* BOTTOM */}
         {/*
           CLS fix: الـ H1 عنده 4 سطور + spans بـ font-pixel (basis33) اللي بيتحمّل
-          async. لما الـ font يوصل، الـ spans بتتل reflow، وgrid-cols-2 items-end
+          async. لما الـ font يوصل، الـ spans بتعمل reflow، وgrid-cols-2 items-end
           بيحرّك العمود اليمين (الأزرار والإحصائيات) تحت → layout shift 0.106.
 
           الحل: نحجز مساحة الـ H1 مسبقاً بـ min-h-[3.5em]. em بيتكيّف مع حجم
           الخط لكل breakpoint، فالقيمة 3.5em بتساوي تقريباً ارتفاع 4 سطور مع
           leading-[0.82] لـ[0.72] (المتوسط ≈ 0.78 × 4 = 3.12em + هامش أمان).
-
-          بعد ما الـ font يحمل، ارتفاع الـ H1 الفعلي بيبقى أقل شوية من 3.5em،
-          بس الفرق صغير ومابيعملش CLS لإن المتصفح بيكون حاجز المساحة من الأول.
         */}
         <div className="pb-6 md:pb-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-end">

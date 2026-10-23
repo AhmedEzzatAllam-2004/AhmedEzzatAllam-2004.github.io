@@ -19,7 +19,7 @@ const ProjectsSection = () => {
 
         <div className="px-5 sm:px-6 md:px-10 lg:px-14 min-w-0">
           <Reveal>
-            <div className="border-b border-white/15 pb-5">
+            <div className="border-b border-white/20 pb-5">
               <div className="flex items-end justify-between">
                 <div className="flex items-center gap-3">
                   <span className="w-2.5 h-2.5 rounded-full bg-blue-500" aria-hidden="true" />
@@ -31,7 +31,8 @@ const ProjectsSection = () => {
                     <span className="font-pixel text-[1.15em] leading-none">WORK</span>
                   </h2>
                 </div>
-                <span className="font-pixel text-[10px] tracking-[0.3em] text-white/70 hidden sm:block">
+                {/* Contrast fix: text-white/85 بدل text-white/70 */}
+                <span className="font-pixel text-[10px] tracking-[0.3em] text-white/85 hidden sm:block">
                   {railProjects?.length || 4} PROJECTS
                 </span>
               </div>
@@ -39,7 +40,8 @@ const ProjectsSection = () => {
           </Reveal>
 
           <Reveal delay={140}>
-            <p className="text-sm md:text-base text-white/50 leading-relaxed mt-5 max-w-2xl">
+            {/* Contrast fix: text-white/75 بدل text-white/50 */}
+            <p className="text-sm md:text-base text-white/75 leading-relaxed mt-5 max-w-2xl">
               A collection of experiments and shipped systems — from neuroscience-inspired AI to
               real-world automation and simulation tools.
             </p>

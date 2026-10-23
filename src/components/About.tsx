@@ -16,7 +16,8 @@ const About = () => {
     >
       {/* Spline 3D background — السكريبت والمشهد بيتحمّلوا بس على الشاشات الكبيرة، وبس لما القسم يقرّب من الشاشة */}
       <SplineAboutBackground containerRef={aboutRef} />
-      <div className="absolute inset-0 z-[1] bg-black/70 pointer-events-none" />
+      {/* الـ overlay اتحطّ من 70% لـ 30% عشان الـ matrix rain (موبايل) والـ Spline (ديسكتوب) يبانوا */}
+      <div className="absolute inset-0 z-[1] bg-black/30 pointer-events-none" />
 
       <div className="relative z-10 w-full">
         <Reveal>

@@ -22,37 +22,33 @@ export function ContactsSlide() {
     const data = new FormData(form);
 
     const fullName = (data.get("name") as string) || "";
-    const nameParts = fullName.trim().split(" ");
-    const firstName = nameParts[0] || "";
-    const lastName = nameParts.slice(1).join(" ") || "";
+    const email = (data.get("email") as string) || "";
+    const subject = (data.get("subject") as string) || "";
+    const message = (data.get("message") as string) || "";
 
-    const payload = {
-      firstName,
-      lastName,
-      email: data.get("email"),
-      subject: data.get("subject"),
-      message: data.get("message"),
-      timestamp: new Date().toISOString(),
-    };
+    // WhatsApp deep link: بنفتح WhatsApp برسالة جاهزة فيها كل البيانات.
+    // مفيش backend — ده بـ يـشتغل على GitHub Pages/Vercel/أي hosting من غير API.
+    const text = `*New message from portfolio*\n\n*Name:* ${fullName}\n*Email:* ${email}\n*Subject:* ${subject}\n\n${message}`;
+    const url = `https://wa.me/201140674371?text=${encodeURIComponent(text)}`;
 
     try {
       setIsSubmitting(true);
-      const res = await fetch("/api/send-whatsapp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      if (!res.ok) throw new Error("failed");
+      // نـ check إن الـ window.open اشتغلت (مش بـ يـ blocker popup)
+      const win = window.open(url, "_blank");
+      if (!win || win.closed || typeof win.closed === "undefined") {
+        // popup blocker — نـ فallback لـ location.href
+        window.location.href = url;
+      }
       toast({
-        title: "تم الإرسال بنجاح!",
-        description: "وصلت رسالتك، سيتم التواصل معك قريبًا.",
+        title: "تم فتح WhatsApp ✓",
+        description: "أكمل رسالتك هناك، أحمد هيـرد عليك قريب.",
       });
       form.reset();
       setFormOpen(false);
     } catch {
       toast({
-        title: "خطأ في الإرسال",
-        description: "فشل في إرسال الرسالة. حاول مرة أخرى.",
+        title: "تعذّر الفتح",
+        description: "جرّب تانى، أو ابعت مباشرة على WhatsApp: 0201140674371",
         variant: "destructive",
       });
     } finally {
@@ -77,9 +73,12 @@ export function ContactsSlide() {
         <img
           src={moonImg}
           alt="Moon horizon"
+          width={1500}
+          height={1500}
+          loading="lazy"
+          draggable={false}
           className="w-[1200px] md:w-[1600px] lg:w-[2200px] max-w-none animate-[spin_240s_linear_infinite] motion-reduce:animate-none will-change-transform rounded-full opacity-80"
           style={{ filter: "drop-shadow(0 -40px 120px rgba(158,158,255,0.15))" }}
-          draggable={false}
         />
       </motion.div>
 
@@ -112,7 +111,7 @@ export function ContactsSlide() {
           viewport={{ once: false, amount: 0.4 }}
           transition={{ duration: 0.8, delay: 0.3, ease: [0.2, 0.8, 0.2, 1] }}
           onClick={() => setFormOpen((v) => !v)}
-          className="group mt-[15svh] md:mt-[16svh] inline-flex items-center gap-3 px-8 h-12 md:h-14 rounded-full bg-white text-black text-[15px] font-medium transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.05] hover:bg-white/90 shadow-[0_0_40px_rgba(255,255,255,0.1)] relative z-20"
+          className="group mt-[15svh] md:mt-[16svh] inline-flex items-center gap-3 px-8 h-12 md:h-14 rounded-full bg-white text-black text-[15px] font-medium transition-all duration-500 ease-[cubic-bezier(0.16\,1\,0.3\,1)] hover:scale-[1.05] hover:bg-white/90 shadow-[0_0_40px_rgba(255,255,255,0.1)] relative z-20"
         >
           {formOpen ? "Close" : "Contact us"}
           {!formOpen && (
@@ -121,7 +120,7 @@ export function ContactsSlide() {
               height="16"
               viewBox="0 0 16 16"
               fill="none"
-              className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1 group-hover:-translate-y-1"
+              className="transition-transform duration-500 ease-[cubic-bezier(0.16\,1\,0.3\,1)]    group-hover:translate-x-1 group-hover:-translate-y-1"
             >
               <path
                 d="M3 13L13 3M13 3H6M13 3V10"
@@ -140,10 +139,10 @@ export function ContactsSlide() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: false, amount: 0.4 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-[8svh] md:mt-[10svh] text-xs font-mono text-white/50 leading-relaxed text-center px-5 uppercase mix-blend-plus-lighter relative z-10"
+          className="mt-[8svh] md:mt-[10svh] text-xs font-mono text-white/70 leading-relaxed text-center px-5 uppercase mix-blend-plus-lighter relative z-10"
         >
-          <p className="text-white/70">2026, AHMED EZZAT ALLAM</p>
-          <p className="mt-2">
+          <p className="text-white/85">2026, AHMED EZZAT ALLAM</p>
+          <p className="mt-2 text-white/70">
             COMPUTER SCIENCE / DATA SCIENCE & AI
             <br />
             ZEWAIL CITY OF SCIENCE AND TECHNOLOGY
@@ -178,7 +177,7 @@ export function ContactsSlide() {
             <button
               type="button"
               onClick={() => setFormOpen(false)}
-              className="absolute top-3 right-3 p-2.5 text-white/40 hover:text-white transition-colors z-50 rounded-full hover:bg-white/5"
+              className="absolute top-3 right-3 p-2.5 text-white/70 hover:text-white transition-colors z-50 rounded-full hover:bg-white/5"
               aria-label="Close form"
             >
               <X size={18} />
@@ -187,7 +186,7 @@ export function ContactsSlide() {
             {/* text-base على الموبايل: أي input أصغر من 16px بيخلي iOS Safari يعمل zoom تلقائي عند الضغط عليه */}
             {fieldMeta.map((f) => (
               <div key={f.name}>
-                <label className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/45">
+                <label className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/70">
                   {f.label}
                 </label>
                 <input
@@ -195,20 +194,20 @@ export function ContactsSlide() {
                   type={f.type}
                   autoComplete={f.autoComplete}
                   required
-                  className="w-full border-b border-white/20 bg-transparent py-2 text-base md:text-sm text-white outline-none transition-colors placeholder:text-white/25 focus:border-white"
+                  className="w-full border-b border-white/20 bg-transparent py-2 text-base md:text-sm text-white outline-none transition-colors placeholder:text-white/40 focus:border-white"
                   placeholder={f.placeholder}
                 />
               </div>
             ))}
             <div>
-              <label className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/45">
+              <label className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/70">
                 MESSAGE
               </label>
               <textarea
                 name="message"
                 required
                 rows={3}
-                className="w-full resize-none border-b border-white/20 bg-transparent py-2 text-base md:text-sm text-white outline-none transition-colors placeholder:text-white/25 focus:border-white"
+                className="w-full resize-none border-b border-white/20 bg-transparent py-2 text-base md:text-sm text-white outline-none transition-colors placeholder:text-white/40 focus:border-white"
                 placeholder="Tell me about your idea or opportunity..."
               />
             </div>

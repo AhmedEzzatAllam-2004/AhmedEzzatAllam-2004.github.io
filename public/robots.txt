@@ -1,14 +1,6 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
+# robots.txt — بنـ say لـ Google إنها تـ index كل حاجة
 User-agent: *
 Allow: /
+
+# مـ say لـ Google بـ مـ crawl الـ sitemap
+Sitemap: https://ahmedezzatallam-2004.github.io/sitemap.xml

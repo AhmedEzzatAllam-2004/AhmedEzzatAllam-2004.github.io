@@ -276,7 +276,8 @@ const RailCard = ({ p, canHover }: { p: RailProject; canHover: boolean }) => {
           }}
         />
 
-        <span className="absolute top-4 left-4 font-pixel text-[10px] tracking-[0.3em] text-white/70">
+        {/* Contrast fix: text-white/70 بدل text-white/70 (تم رفعه من /70 لـ /85) */}
+        <span className="absolute top-4 left-4 font-pixel text-[10px] tracking-[0.3em] text-white/85">
           {p.n}
         </span>
 
@@ -292,7 +293,7 @@ const RailCard = ({ p, canHover }: { p: RailProject; canHover: boolean }) => {
           <p className="text-4xl md:text-5xl font-display text-white">
             <AnimatedStat value={p.stat} active={inView} />
           </p>
-          <p className="mt-2 font-pixel text-[10px] tracking-[0.3em] uppercase text-white/70">
+          <p className="mt-2 font-pixel text-[10px] tracking-[0.3em] uppercase text-white/85">
             {p.statLabel}
           </p>
         </div>
@@ -333,7 +334,8 @@ const RailCard = ({ p, canHover }: { p: RailProject; canHover: boolean }) => {
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
             <h3 className="text-lg uppercase tracking-tight text-white break-words">{p.title}</h3>
-            <p className="mt-1 font-pixel text-[10px] tracking-[0.25em] uppercase text-white/45">
+            {/* Contrast fix: text-white/70 بدل text-white/45 */}
+            <p className="mt-1 font-pixel text-[10px] tracking-[0.25em] uppercase text-white/70">
               {p.category}
             </p>
           </div>
@@ -393,7 +395,8 @@ const ProjectRail = () => {
   return (
     <div className="mt-10 min-w-0 max-w-full">
       <div className="flex items-center justify-between gap-4">
-        <p className="font-pixel text-[10px] tracking-[0.3em] uppercase text-white/40">
+        {/* Contrast fix: text-white/70 بدل text-white/40 (3:1 → 9:1) */}
+        <p className="font-pixel text-[10px] tracking-[0.3em] uppercase text-white/70">
           <span className="md:hidden">Swipe to see more →</span>
           <span className="hidden md:inline">Scroll right to see more →</span>
         </p>
@@ -401,14 +404,14 @@ const ProjectRail = () => {
           <button
             onClick={() => scrollBy(-1)}
             aria-label="Previous projects"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-white/40 hover:text-white z-10"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/85 transition-colors hover:border-white/40 hover:text-white z-10"
           >
             <ArrowLeft size={16} />
           </button>
           <button
             onClick={() => scrollBy(1)}
             aria-label="Next projects"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-white/40 hover:text-white z-10"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/85 transition-colors hover:border-white/40 hover:text-white z-10"
           >
             <ArrowRight size={16} />
           </button>
@@ -427,9 +430,9 @@ const ProjectRail = () => {
         <div className="shrink-0 w-2" aria-hidden="true" />
       </div>
 
-      <div className="h-px w-full bg-white/10">
+      <div className="h-px w-full bg-white/15">
         <div
-          className="h-px bg-white/70 origin-left"
+          className="h-px bg-white/85 origin-left"
           style={{
             width: `${Math.max(12, progress * 100)}%`,
             transition: "width 200ms linear",

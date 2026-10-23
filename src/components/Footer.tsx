@@ -3,7 +3,8 @@ import WaveCanvas from "@/components/WaveCanvas";
 const Footer = () => {
   return (
     <footer className="hero-section relative pt-8 bg-black text-white border-t border-white/10">
-      <div className="relative h-24 sm:h-32 w-full overflow-hidden">
+      {/* WaveCanvas مخفي على الموبايل (بيطلّع لاج) — بيظهر بس على md+ */}
+      <div className="hidden md:block relative h-24 sm:h-32 w-full overflow-hidden">
         <WaveCanvas />
       </div>
 
@@ -14,14 +15,14 @@ const Footer = () => {
               className="flex items-center gap-2 mb-6 cursor-pointer w-fit"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
-              <span className="text-sm font-medium tracking-wider" style={{ color: "hsl(0,0%,90%)" }}>
+              <span className="text-sm font-medium tracking-wider" style={{ color: "hsl(0,0%,95%)" }}>
                 AHMED EZZAT ALLAM
               </span>
             </div>
-            <h3 className="text-display text-2xl md:text-3xl leading-snug" style={{ color: "hsl(0,0%,85%)" }}>
+            <h3 className="text-display text-2xl md:text-3xl leading-snug" style={{ color: "hsl(0,0%,90%)" }}>
               Turning data and code into intelligent, high-performance web and AI experiences
             </h3>
-            <p className="text-body text-sm mt-4" style={{ color: "hsl(0,0%,45%)" }}>
+            <p className="text-body text-sm mt-4" style={{ color: "hsl(0,0%,75%)" }}>
               Computer Science & AI Undergraduate at Zewail City — building cutting-edge software and scalable systems.
             </p>
             <div className="flex flex-wrap gap-3 mt-6">
@@ -33,7 +34,7 @@ const Footer = () => {
               </a>
               <a
                 href="#projects"
-                className="px-5 py-2.5 rounded-full text-sm border transition-colors duration-300 hover:border-white/50 inline-flex items-center justify-center text-white/70 border-white/25"
+                className="px-5 py-2.5 rounded-full text-sm border transition-colors duration-300 hover:border-white/50 inline-flex items-center justify-center text-white/85 border-white/25"
               >
                 View Projects
               </a>
@@ -42,35 +43,35 @@ const Footer = () => {
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
             <div>
-              <h4 className="text-xs tracking-wider mb-4 text-body" style={{ color: "hsl(0,0%,50%)" }}>NAVIGATION</h4>
+              <h4 className="text-xs tracking-wider mb-4 text-body" style={{ color: "hsl(0,0%,70%)" }}>NAVIGATION</h4>
               <ul className="space-y-3">
-                <li><a href="#about" className="text-sm text-white/70 hover:underline">About</a></li>
-                <li><a href="#skills" className="text-sm text-white/70 hover:underline">Skills</a></li>
+                <li><a href="#about" className="text-sm text-white/85 hover:underline">About</a></li>
+                <li><a href="#skills" className="text-sm text-white/85 hover:underline">Skills</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="text-xs tracking-wider mb-4 text-body" style={{ color: "hsl(0,0%,50%)" }}>EXPERIENCE</h4>
+              <h4 className="text-xs tracking-wider mb-4 text-body" style={{ color: "hsl(0,0%,70%)" }}>EXPERIENCE</h4>
               <ul className="space-y-3">
-                <li><a href="#experience" className="text-sm text-white/70 hover:underline">Timeline</a></li>
+                <li><a href="#experience" className="text-sm text-white/85 hover:underline">Timeline</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="text-xs tracking-wider mb-4 text-body" style={{ color: "hsl(0,0%,50%)" }}>WORK</h4>
+              <h4 className="text-xs tracking-wider mb-4 text-body" style={{ color: "hsl(0,0%,70%)" }}>WORK</h4>
               <ul className="space-y-3">
-                <li><a href="#projects" className="text-sm text-white/70 hover:underline">Selected Work</a></li>
+                <li><a href="#projects" className="text-sm text-white/85 hover:underline">Selected Work</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="text-xs tracking-wider mb-4 text-body" style={{ color: "hsl(0,0%,50%)" }}>CONNECT</h4>
+              <h4 className="text-xs tracking-wider mb-4 text-body" style={{ color: "hsl(0,0%,70%)" }}>CONNECT</h4>
               <ul className="space-y-3">
-                <li><a href="#contact" className="text-sm text-white/70 hover:underline">Contact</a></li>
+                <li><a href="#contact" className="text-sm text-white/85 hover:underline">Contact</a></li>
               </ul>
             </div>
           </div>
         </div>
 
-        <div className="mt-12 md:mt-16 pt-8 flex flex-col items-center gap-6" style={{ borderTop: "1px solid hsl(0,0%,15%)" }}>
-          <div className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/40 text-center">
+        <div className="mt-12 md:mt-16 pt-8 flex flex-col items-center gap-6" style={{ borderTop: "1px solid hsl(0,0%,25%)" }}>
+          <div className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/70 text-center">
             6th of October City, Giza, Egypt — Zewail City of Science and Technology
           </div>
 
@@ -99,9 +100,9 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 aria-label={social.name}
                 className="p-2 transition-all duration-300 hover:scale-110 flex items-center justify-center"
-                style={{ color: "hsl(0,0%,50%)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "hsl(0,0%,90%)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "hsl(0,0%,50%)")}
+                style={{ color: "hsl(0,0%,75%)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "hsl(0,0%,95%)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "hsl(0,0%,75%)")}
               >
                 {social.icon}
               </a>
@@ -109,15 +110,15 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-wrap justify-center gap-4 md:gap-6">
-            <span className="text-xs text-body text-center" style={{ color: "hsl(0,0%,40%)" }}>
+            <span className="text-xs text-body text-center" style={{ color: "hsl(0,0%,70%)" }}>
               © {new Date().getFullYear()} AHMED EZZAT ALLAM. ALL RIGHTS RESERVED.
             </span>
           </div>
         </div>
 
-        {/* Watermark Name */}
-        <div className="mt-8 flex justify-center overflow-hidden">
-          <p className="text-[35px] md:text-[75px] leading-none tracking-tight select-none uppercase font-bold text-white/5">
+        {/* Watermark Name — aria-hidden لإنه decorative (مش ضروري للـ screen readers) */}
+        <div className="mt-8 flex justify-center overflow-hidden" aria-hidden="true">
+          <p className="text-[35px] md:text-[75px] leading-none tracking-tight select-none uppercase font-bold text-white/20">
             Ahmed Ezzat
           </p>
         </div>
